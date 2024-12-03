@@ -1,0 +1,29 @@
+﻿
+@*@model MessageModel
+<input asp-for="Result.Message" type="hidden" />
+<input asp-for="Result.Rsl" type="hidden" />
+@{
+
+    if (!string.IsNullOrEmpty(Model.Result.Message))
+    {
+        if (Model.Result.Rsl == true)
+        {
+            <script>
+                $(document).ready(function () {
+                    showMessage("موفق", '@(Model.Result.Message)', "success")
+                })
+            </script>
+        }
+        if (Model.Result.Rsl == false)
+        {
+            <script>
+                $(document).ready(function () {
+                    showMessage("خطا", '@(Model.Result.Message)', "error")
+                })
+            </script>
+        }
+    }*@
+
+
+
+}

@@ -1,0 +1,758 @@
+﻿
+@{
+    ViewData["Title"] = "PersonalInfo";
+}
+
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Title -->
+    <title>پیشنمایش قالب HTML شخصی noxfolio || درباره من</title>
+    <!-- Favicon Icon -->
+    <link rel="shortcut icon" href="~/site/images/favicon.png" type="image/x-icon">
+
+    <!-- Flaticon -->
+    <link rel="stylesheet" href="~/site/css/flaticon.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/site/css/fontawesome-5.14.0.min.css">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="~/site/css/bootstrap.min.css">
+    <!-- Nice Select -->
+    <link rel="stylesheet" href="~/site/css/nice-select.min.css">
+    <!-- Animate -->
+    <link rel="stylesheet" href="~/site/css/animate.min.css">
+    <!-- Slick -->
+    <link rel="stylesheet" href="~/site/css/slick.min.css">
+    <!-- Main Style -->
+    <link rel="stylesheet" href="~/site/css/style.css">
+
+</head>
+<body class="home-one">
+    <div class="page-wrapper">
+
+        <!-- Preloader -->
+        <div class="preloader"></div>
+
+
+        <!-- main header -->
+        <header class="main-header menu-absolute">
+            <!--Header-Upper-->
+            <div class="header-upper">
+                <div class="container container-1620 clearfix">
+
+                    <div class="header-inner rel d-flex align-items-center">
+                        <div class="logo-outer">
+                            <div class="logo">
+                                <a href="index.html"><img src="~/site/images/logos/logo.png" alt="Logo" title="Logo"></a>
+                            </div>
+                        </div>
+
+                        <div class="nav-outer clearfix mx-auto">
+                            <!-- Main Menu -->
+                            <nav class="main-menu navbar-expand-lg">
+                                <div class="navbar-header">
+                                    <div class="mobile-logo my-15">
+                                        <a href="index.html">
+                                            <img src="~/site/images/logos/logo.png" alt="Logo" title="Logo">
+                                        </a>
+                                    </div>
+
+                                    <!-- Message Button Mobile -->
+                                    <div class="menu-btns me-4">
+                                        <!-- message sidbar mobile -->
+                                        <div class="menu-sidebar mobile-hidden" id="message_btn_mobile">
+                                            <button>
+                                                <i class="far fa-envelope"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Toggle Button -->
+                                    <button type="button" class="menu-mobile-button" id="nav_btn">
+                                        <img src="~/site/images/shape/sidebar-tottler.svg" alt="Toggler">
+                                    </button>
+
+                                </div>
+
+                                <div class="navbar-collapse collapse clearfix">
+                                    <ul class="navigation clearfix">
+                                        <li class="dropdown">
+                                            <a href="#">اصلی</a>
+                                            <ul>
+                                                <li class="top"><a href="index.html">چند صفحه ای</a></li>
+                                                <li><a href="indexonepage.html">تک صفحه</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="top"><a href="about.html">درباره من</a></li>
+                                        <li><a href="services.html">خدمات</a></li>
+                                        <li class="dropdown">
+                                            <a href="#">نمونه کارها</a>
+                                            <ul>
+                                                <li class="top"><a href="projects.html">نمایش گرید</a></li>
+                                                <li><a href="projects-masonry.html">نمایش شبکه ای</a></li>
+                                                <li><a href="project-details.html">جزئیات نمونه کار</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a href="#">بلاگ</a>
+                                            <ul>
+                                                <li class="top"><a href="blog.html">لیست پست ها</a></li>
+                                                <li><a href="blog-details.html">جزئیات پست</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a href="#">سایر</a>
+                                            <ul>
+                                                <li class="top"><a href="404.html">صفحه ارور</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="contact.html">تماس با من</a></li>
+                                    </ul>
+                                </div>
+
+                            </nav>
+                            <!-- Main Menu End-->
+                        </div>
+
+                        <!-- Message Button -->
+                        <div class="menu-btns">
+                            <!-- message sidbar -->
+                            <div class="menu-sidebar mobile-hidden" id="message_btn">
+                                <button>
+                                    <i class="far fa-envelope"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!--End Header Upper-->
+        </header>
+
+
+        <!--Form Back Drop-->
+        <div class="form-back-drop"></div>
+
+        <!-- Hidden Message Sidebar -->
+        <section class="hidden-bar" id="section_message">
+            <div class="inner-box text-center">
+                <div class="cross-icon"><span class="fa fa-times"></span></div>
+                <div class="title">
+                    <h4>درخواست همکاری</h4>
+                </div>
+
+                <!--Appointment Form-->
+                <div class="appointment-form">
+                    <form method="post" action="contact.html">
+                        <div class="form-group">
+                            <input type="text" name="text" value="" placeholder="نام شما" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" name="email" value="" placeholder="آدرس ایمیل" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea placeholder="متن پیام" rows="5"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="theme-btn">ارسال درخواست</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!--Social Icons-->
+                <div class="social-style-one">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                </div>
+            </div>
+        </section>
+        <div class="form-back-drop"></div>
+        <!--End Hidden Message Sidebar -->
+        <!-- Menu Sidebar -->
+        <section class="nav-bar" id="section_nav">
+            <div class="inner-box">
+                <div class="cross-icon"><span class="fa fa-times"></span></div>
+
+                <nav class="main-menu">
+
+                    <ul class="navigation navbar-collapse clearfix collapse show">
+
+                        <li class="dropdown">
+                            <a href="#">اصلی</a>
+                            <ul>
+                                <li><a href="index.html">چند صفحه ای</a></li>
+                                <li><a href="indexonepage.html">تک صفحه</a></li>
+                            </ul>
+                            <div class="dropdown-btn"><span class="fas fa-chevron-down"></span></div>
+                        </li>
+
+                        <li><a href="about.html">درباره من</a></li>
+
+                        <li><a href="services.html">خدمات</a></li>
+
+                        <li class="dropdown">
+                            <a href="#">نمونه کارها</a>
+                            <ul>
+                                <li><a href="projects.html">نمایش گرید</a></li>
+                                <li><a href="projects-masonry.html">نمایش شبکه ای</a></li>
+                                <li><a href="project-details.html">جزئیات نمونه کار</a></li>
+                            </ul>
+                            <div class="dropdown-btn"><span class="fas fa-chevron-down"></span></div>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#">بلاگ</a>
+                            <ul>
+                                <li><a href="blog.html">لیست پست ها</a></li>
+                                <li><a href="blog-details.html">جزئیات پست</a></li>
+                            </ul>
+                            <div class="dropdown-btn"><span class="fas fa-chevron-down"></span></div>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#">سایر</a>
+                            <ul>
+                                <li><a href="404.html">صفحه ارور</a></li>
+                            </ul>
+                            <div class="dropdown-btn"><span class="fas fa-chevron-down"></span></div>
+                        </li>
+
+                        <li><a href="contact.html">تماس با من</a></li>
+
+                    </ul>
+
+                </nav>
+
+            </div>
+        </section>
+        <div class="nav-back-drop"></div>
+        <!--End Menu Sidebar -->
+        <!-- Page Banner Start -->
+        <section class="page-banner-area pt-200 rpt-140 pb-100 rpb-60 rel z-1 text-center">
+            <div class="container">
+                <div class="banner-inner text-white highlight page-title-parent mb-20">
+                    <h1 class="page-title wow fadeInUp delay-0-2s">درباره من</h1>
+                </div>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center wow fadeInUp delay-0-4s">
+                        <li class="breadcrumb-item"><a href="index.html">اصلی</a></li>
+                        <li class="breadcrumb-item active"><a href="about.html">درباره من</a></li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="bg-lines">
+                <span></span><span></span>
+                <span></span><span></span>
+                <span></span><span></span>
+                <span></span><span></span>
+                <span></span><span></span>
+            </div>
+        </section>
+        <!-- Page Banner End -->
+
+
+        <div class="about-main-image-area pt-40">
+            <div class="container">
+                <div class="about-main-image wow fadeInUp delay-0-5s">
+                    <img src="~/site/images/about/about-page.jpg" alt="About Page">
+                </div>
+            </div>
+        </div>
+
+
+        <!-- About Page Area start -->
+        <section class="about-page-area py-130 rpy-100 rel z-1">
+            <div class="container">
+                <div class="row align-items-center justify-content-between">
+                    <div class="col-lg-6">
+                        <div class="about-page-content-part rel z-2 rmb-55">
+                            <div class="section-title mb-35 wow fadeInUp delay-0-2s">
+                                <span class="sub-title mb-15">کاری که می کنم</span>
+                                <h2 class="highlight">راه اندازی <span> کسب و کار شما</span> <br>با <span> کمترین هزینه </span> </h2>
+                                <p>
+                                    با تجربه و مهارتی که طی این سال ها بدست آوردم شما رو در طول مسیر کسب و کار و ایدتون
+                                    همراهی می کنم . پروژه های شما با برنامه ریزی و بکارگیری مهارت های روز عصر دیجیتال انجام شده و هر قدم با تایید و رضایت شما خواهد بود.
+                                </p>
+                            </div>
+                            <ul class="list-style-one two-column pb-30 wow fadeInUp delay-0-2s">
+                                <li>طراحی برند</li>
+                                <li>دیجیتال مارکتینگ</li>
+                                <li>طراحی سایت</li>
+                                <li>توسعه اپلیکیشن</li>
+                            </ul>
+                            <a href="about.html" class="theme-btn">بیشتر بدانید <i class="far fa-angle-left"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-xl-5 col-lg-6">
+                        <div class="about-right-part wow fadeInLeft delay-0-3s">
+                            <div class="experience-years">
+                                <b>5+</b>
+                                <h5>سال تجربه </h5>
+                            </div>
+                            <div class="about-btn one wow fadeInRight delay-0-4s mobile-hidden">
+                                <img src="~/site/images/about/btn-image1.png" alt="Image">
+                                <h6>طراحی تجربه کاربری</h6>
+                            </div>
+                            <div class="about-btn two wow fadeInRight delay-0-5s mobile-hidden">
+                                <img src="~/site/images/about/btn-image2.png" alt="Image">
+                                <h6>اپلیکیشن و سایت</h6>
+                            </div>
+                            <div class="about-btn three wow fadeInRight delay-0-4s mobile-hidden">
+                                <img src="~/site/images/about/btn-image1.png" alt="Image">
+                                <h6>دیجیتال مارکتینگ</h6>
+                            </div>
+                            <div class="dot-shape one">
+                                <img src="~/site/images/shape/about-dots-two.png" alt="Shape">
+                            </div>
+                            <div class="dot-shape two">
+                                <img src="~/site/images/shape/about-dots-two.png" alt="Shape">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-lines">
+                <span></span><span></span>
+                <span></span><span></span>
+                <span></span><span></span>
+                <span></span><span></span>
+                <span></span><span></span>
+            </div>
+        </section>
+        <!-- About Page Area end -->
+        <!-- Services Area start -->
+        <section id="services" class="services-area bgc-black pt-130 rpt-100 pb-100 rpb-70 rel z-1">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-xl-6 col-lg-8">
+                        <div class="section-title highlight text-center mb-60 wow fadeInUp delay-0-2s">
+                            <h2><span>خدمات ویژه من</span> برای <br> توسعه <span>کسب و کار شما</span></h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="service-item wow fadeInUp delay-0-2s">
+                            <div class="number">1.</div>
+                            <div class="content">
+                                <h4>هویت بصری برند</h4>
+                                <p>طراحی لوگو ، سربرگ ، کارت ویزیت و...</p>
+                            </div>
+                            <a href="services.html" class="details-btn"><i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="service-item wow fadeInUp delay-0-4s">
+                            <div class="number">2.</div>
+                            <div class="content">
+                                <h4>توسعه وب سایت</h4>
+                                <p>طراحی و توسعه انواع سایت ها در سریع ترین زمان</p>
+                            </div>
+                            <a href="services.html" class="details-btn"><i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="service-item wow fadeInUp delay-0-2s">
+                            <div class="number">3.</div>
+                            <div class="content">
+                                <h4>تولید اپلیکیشن موبایل</h4>
+                                <p>ساخت اپلیکیشن اندروید و ios با بهترین کیفیت</p>
+                            </div>
+                            <a href="services.html" class="details-btn"><i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="service-item wow fadeInUp delay-0-4s">
+                            <div class="number">4.</div>
+                            <div class="content">
+                                <h4>طراحی رابط کاربری</h4>
+                                <p>طراحی ساده و شکیل متناسب با ترندهای جهانی</p>
+                            </div>
+                            <a href="services.html" class="details-btn"><i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="service-item wow fadeInUp delay-0-2s">
+                            <div class="number">5.</div>
+                            <div class="content">
+                                <h4>طراحی محصول</h4>
+                                <p> ایده پردازی و خلق محصولات برطرف کننده نیاز کاربر</p>
+                            </div>
+                            <a href="services.html" class="details-btn"><i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="service-item wow fadeInUp delay-0-4s">
+                            <div class="number">6.</div>
+                            <div class="content">
+                                <h4>سئو و دیجیتال مارکتینگ</h4>
+                                <p>بهینه سازی سئو و افزایش ترافیک سایت</p>
+                            </div>
+                            <a href="services.html" class="details-btn"><i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-lines">
+                <span></span><span></span>
+                <span></span><span></span>
+                <span></span><span></span>
+                <span></span><span></span>
+                <span></span><span></span>
+            </div>
+        </section>
+        <!-- Services Area end -->
+        <!-- FAQs Area start -->
+        <section id="faqs" class="faqs-area py-130 rpy-100 rel z-1">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        <div class="faq-image-part rmb-55 wow fadeInUp delay-0-2s">
+                            <div class="image-one">
+                                <img src="~/site/images/faqs/faq-one.jpg" alt="FAQ">
+                            </div>
+                            <div class="image-two">
+                                <img src="~/site/images/faqs/faq-two.jpg" alt="FAQ">
+                            </div>
+                            <div class="square-shape"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="faq-content-part rel z-2">
+                            <div class="section-title mb-40 wow fadeInUp delay-0-4s">
+                                <h2 class="highlight" style="line-height: 2">
+                                    ارائه
+                                    <span>پشتیبانی و مشاوره</span>
+                                    <br>
+                                    حتی در
+                                    <span>روزهای غیرکاری</span>
+                                </h2>
+                            </div>
+                            <div class="accordion wow fadeInUp delay-0-4s" id="faq-accordion">
+                                <div class="accordion-item">
+                                    <h5 class="accordion-header">
+                                        <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                                            چه خدماتی ارائه می دهید ؟
+                                        </button>
+                                    </h5>
+                                    <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#faq-accordion">
+                                        <div class="accordion-body">
+                                            <p>هر خدمتی که کسب و کار شما برای راه اندازی و یا توسعه به آن نیاز دارد را من و تیمم ارائه می دهد و ازین بابت می توانید خیال راحتی داشته باشید. </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h5 class="accordion-header">
+                                        <button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+                                            چگونه می توانم به شما اعتماد کنم ؟
+                                        </button>
+                                    </h5>
+                                    <div id="collapseTwo" class="accordion-collapse collapse show" data-bs-parent="#faq-accordion">
+                                        <div class="accordion-body">
+                                            <p>نمونه کار های زیادی است که قابل مشاهده است و می توانید از مشتریان ما نیز نظر خواهی کنید . همچنین نشان های اعتماد و .. نیز موجود است.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h5 class="accordion-header">
+                                        <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseThree">
+                                            تیم ما متشکل از چه کسانی است ؟
+                                        </button>
+                                    </h5>
+                                    <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#faq-accordion">
+                                        <div class="accordion-body">
+                                            <p>تیم ما شامل متخصصان در حوضه های مختلف دنیای دیجیتال و مارکتینگ می باشد و در صورتی که به نیروی بیشتری نیاز داشته باشیم موارد به آنها برون سپاری می شود.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h5 class="accordion-header">
+                                        <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseFour">
+                                            فرایند پروژه به چه صورت انجام میشه ؟
+                                        </button>
+                                    </h5>
+                                    <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#faq-accordion">
+                                        <div class="accordion-body">
+                                            <p>فرمی جهت راه اندازی کسب و کار از طرف ما برایتان ارسال می شود و خواسته ها و نیازهایتان را در آن وارد می کنید . قرارداد بسته شده و فرایند فنی آغاز و در نهایت با تایید و نظر شما هر بخش انجام شده و به دست کاربران می رسد.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-lines">
+                <span></span><span></span>
+                <span></span><span></span>
+                <span></span><span></span>
+                <span></span><span></span>
+                <span></span><span></span>
+            </div>
+        </section>
+        <!-- FAQs Area end -->
+        <!-- Testimonial Area start -->
+        <section class="testimonials-area bgc-black rel z-1">
+            <div class="for-bgc-black py-130 rpy-100">
+                <div class="container">
+                    <div class="row gap-90">
+                        <div class="col-lg-4">
+                            <div class="testimonials-content-part rel z-2 rmb-55 wow fadeInUp delay-0-2s">
+                                <div class="section-title mb-40">
+                                    <span class="sub-title mb-15">نظر مشتریان</span>
+                                    <h2 class="highlight"><span>نظر و بازخورد مشتریان</span> درمورد همکاری با من </h2>
+                                    <p>در اینجا بازخورد برخی از مشتریانم را قرارداده ام و خوشحالم که 95% آنها از خدمات من راضی بوده اند. </p>
+                                </div>
+                                <div class="slider-arrows">
+                                    <button class="testimonial-prev"><i class="fa fa-arrow-right"></i></button>
+                                    <button class="testimonial-next"><i class="fa fa-arrow-left"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="testimonials-wrap">
+                                <div class="testimonial-item wow fadeInUp delay-0-3s">
+                                    <div class="author">
+                                        <img src="~/site/images/testimonials/author1.png" alt="Author">
+                                    </div>
+                                    <div class="text">
+                                        همه موارد به موقع و طبق خواسته ما انجام شد ، به ما تخفیف دادن و در جریان تغییرات مرحله به مرحله پروژه قرار گرفتیم و این تنها همکاری ما نخواهد بود.
+                                    </div>
+                                    <div class="testi-des">
+                                        <h5>آرشا سمیعی</h5>
+                                        <span>مدیرعامل</span>
+                                    </div>
+                                </div>
+                                <div class="testimonial-item wow fadeInUp delay-0-4s">
+                                    <div class="author">
+                                        <img src="~/site/images/testimonials/author2.png" alt="Author">
+                                    </div>
+                                    <div class="text">
+                                        اپلیکیشن و سایت دقیقا مشابه UI ارسالی انجام شد و اکثر اوقات دردسترس بودن ، تجربه کار با ایشان برای من یک اتفاق خوشایند بود.
+                                    </div>
+                                    <div class="testi-des">
+                                        <h5>نیکا سعادتمند</h5>
+                                        <span>گرافیست</span>
+                                    </div>
+                                </div>
+                                <div class="testimonial-item wow fadeInUp delay-0-2s">
+                                    <div class="author">
+                                        <img src="~/site/images/testimonials/author3.png" alt="Author">
+                                    </div>
+                                    <div class="text">
+                                        سربرگ ، کارت ویزیت و موارد گرافیکی در رابطه با برند جدید ما به بهترین نحو انجام دادن و جلسات بسیار سودبخشی با ما داشتند ازین بابت رضایت کامل دارم.
+                                    </div>
+                                    <div class="testi-des">
+                                        <h5>رضا فرهمند</h5>
+                                        <span>مدیر بازاریابی</span>
+                                    </div>
+                                </div>
+                                <div class="testimonial-item wow fadeInUp delay-0-2s">
+                                    <div class="author">
+                                        <img src="~/site/images/testimonials/author4.png" alt="Author">
+                                    </div>
+                                    <div class="text">
+                                        بسیار منظم و متعهد می باشند و پروژه را با کیفیت مطلوبی به اتمام رساندند . پشتیبانی خوبی هم داشتند قطعا از ایشان بیشتر در کسب و کارمان استفاده می کنیم.
+                                    </div>
+                                    <div class="testi-des">
+                                        <h5>پانته آ شکوهی</h5>
+                                        <span>مسئول فروش</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-lines">
+                <span></span><span></span>
+                <span></span><span></span>
+                <span></span><span></span>
+                <span></span><span></span>
+                <span></span><span></span>
+            </div>
+        </section>
+        <!-- Testimonial Area end -->
+        <!-- Client Log start -->
+        <div class="client-logo-area rel z-1 pt-130 rpt-100 pb-60">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-xl-12">
+                        <div class="section-title text-center pt-5 mb-65 wow fadeInUp delay-0-2s">
+                            <h6 class="highlight-small">همکاری های اخیر من با <span>برند های محبوب</span></h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="client-logo-wrap">
+                    <a class="client-logo-item wow fadeInUp delay-0-2s" href="contact.html">
+                        <img src="~/site/images/client-logos/client-logo1.png" alt="Client Logo">
+                    </a>
+                    <a class="client-logo-item wow fadeInUp delay-0-3s" href="contact.html">
+                        <img src="~/site/images/client-logos/client-logo2.png" alt="Client Logo">
+                    </a>
+                    <a class="client-logo-item wow fadeInUp delay-0-4s" href="contact.html">
+                        <img src="~/site/images/client-logos/client-logo3.png" alt="Client Logo">
+                    </a>
+                    <a class="client-logo-item wow fadeInUp delay-0-5s" href="contact.html">
+                        <img src="~/site/images/client-logos/client-logo4.png" alt="Client Logo">
+                    </a>
+                    <a class="client-logo-item wow fadeInUp delay-0-6s" href="contact.html">
+                        <img src="~/site/images/client-logos/client-logo5.png" alt="Client Logo">
+                    </a>
+                    <a class="client-logo-item wow fadeInUp delay-0-2s" href="contact.html">
+                        <img src="~/site/images/client-logos/client-logo6.png" alt="Client Logo">
+                    </a>
+                    <a class="client-logo-item wow fadeInUp delay-0-3s" href="contact.html">
+                        <img src="~/site/images/client-logos/client-logo7.png" alt="Client Logo">
+                    </a>
+                    <a class="client-logo-item wow fadeInUp delay-0-4s" href="contact.html">
+                        <img src="~/site/images/client-logos/client-logo8.png" alt="Client Logo">
+                    </a>
+                    <a class="client-logo-item wow fadeInUp delay-0-5s" href="contact.html">
+                        <img src="~/site/images/client-logos/client-logo9.png" alt="Client Logo">
+                    </a>
+                    <a class="client-logo-item wow fadeInUp delay-0-6s" href="contact.html">
+                        <img src="~/site/images/client-logos/client-logo10.png" alt="Client Logo">
+                    </a>
+                </div>
+            </div>
+            <div class="bg-lines">
+                <span></span><span></span>
+                <span></span><span></span>
+                <span></span><span></span>
+                <span></span><span></span>
+                <span></span><span></span>
+            </div>
+        </div>
+        <!-- Client Log end -->
+        <!-- footer area start -->
+        <footer class="main-footer rel z-1">
+            <div class="footer-top-wrap bgc-black pt-100 pb-75">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-2 col-md-12">
+                            <div class="footer-widget widget_logo wow fadeInUp delay-0-2s">
+                                <div class="footer-logo">
+                                    <a href="index.html"><img src="~/site/images/logos/logo.png" alt="Logo"></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-7 col-md-7 footer-parent ">
+                            <div class="footer-base-parent">
+                                <div class="footer-widget widget_nav_menu wow fadeInUp delay-0-4s">
+                                    <h6 class="footer-title">لینک صفحات</h6>
+                                    <ul>
+                                        <li><a href="services.html">خدمات</a></li>
+                                        <li><a href="projects.html">نمونه کار</a></li>
+                                        <li><a href="services.html#pricing">قیمت گذاری</a></li>
+                                        <li><a href="about.html#faqs">درباره من</a></li>
+                                        <li><a href="contact.html">تماس با من</a></li>
+
+                                    </ul>
+                                </div>
+                                <div class="footer-widget widget_newsletter wow fadeInUp delay-0-4s">
+                                    <form action="#" style="margin: unset">
+                                        <input type="text" id="email_address" name="email" class="custom-email-field" placeholder="آدرس ایمیل" required>
+                                        <button class="theme-btn">
+                                            عضویت در خبرنامه <i class="far fa-angle-left"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-5">
+                            <div class="footer-widget widget_contact_info wow fadeInUp delay-0-6s">
+                                <h6 class="footer-title">ارتباط با ما</h6>
+                                <ul>
+                                    <li>
+                                        <i class="far fa-map-marker-alt"></i> ایران ، کاشان, خیابان امیر کبیر<br> روبروی پمپ
+                                        بنزین ، واحد 1
+                                    </li>
+                                    <li>
+                                        <i class="far fa-envelope"></i>
+                                        <a href="mailto:support@gmail.com">support@gmail.com</a>
+                                    </li>
+                                    <li>
+                                        <i class="far fa-phone"></i> <a href="callto:+989130000000" class="phone-number">
+                                            +98
+                                            913 000 0000
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom pt-20 pb-5 rpt-25">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="copyright-text">
+                                <p> کپی رایت © 1402, کلیه حقوق برای <a href="index.html">بایت مستر</a> محفوظ است </p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 text-lg-end">
+                            <ul class="footer-bottom-nav">
+                                <li><a href="#">فیسبوک</a></li>
+                                <li><a href="#">توییتر</a></li>
+                                <li><a href="#">اینستاگرام</a></li>
+                                <li><a href="#">لینکدین</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Scroll Top Button -->
+                    <button class="scroll-top scroll-to-target" data-target="html">
+                        <span class="fas fa-angle-double-up"></span>
+                    </button>
+                </div>
+                <div class="bg-lines">
+                    <span></span><span></span>
+                    <span></span><span></span>
+                    <span></span><span></span>
+                    <span></span><span></span>
+                    <span></span><span></span>
+                </div>
+            </div>
+        </footer>
+        <!-- footer area end -->
+        <!-- mouse pointer start -->
+        <div class="nox-mouse nox-mouse-outer"></div>
+        <div class="nox-mouse nox-mouse-inner"></div>
+        <!-- mouse pointer end -->
+
+    </div>
+    <!--End pagewrapper-->
+    <!-- Jquery -->
+    <script src="~/site/js/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="~/site/js/bootstrap.min.js"></script>
+    <!-- Appear Js -->
+    <script src="~/site/js/appear.min.js"></script>
+    <!-- Slick -->
+    <script src="~/site/js/slick.min.js"></script>
+    <!-- Nice Select -->
+    <script src="~/site/js/jquery.nice-select.min.js"></script>
+    <!-- Image Loader -->
+    <script src="~/site/js/imagesloaded.pkgd.min.js"></script>
+    <!-- Isotope -->
+    <script src="~/site/js/isotope.pkgd.min.js"></script>
+    <!--  WOW Animation -->
+    <script src="~/site/js/wow.min.js"></script>
+    <!-- Typed -->
+    <script src="~/site/js/typed.umd.js"></script>
+    <!-- Custom script -->
+    <script src="~/site/js/script.js"></script>
+
+</body>
+</html>
+
