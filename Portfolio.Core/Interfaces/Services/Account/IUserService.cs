@@ -10,6 +10,6 @@ namespace Portfolio.Core.Interfaces.Services.Account
 {
 	public interface IUserService
 	{
-		IResult CreateUser(RegisterDto registerDto);
+		Task<IResult> CreateUser(RegisterDto registerDto);
 	}
 }

@@ -2,8 +2,10 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Portfolio.Core.Entities.ClassBases;
+using Portfolio.Core.Interfaces.Repositories;
 using Portfolio.Core.Interfaces.Services.CacheInterfaces;
 using Portfolio.Core.RegisterAutoMapper;
+using Portfolio.Infrastructure.Repositories;
 using Portfolio.Provider.CacheProvider;
 using System;
 using System.Collections.Generic;
@@ -22,6 +24,10 @@ namespace Portfolio.IOC
             {
                 cfg.AddProfile(new RegisterMap(provider.GetService<IHttpContextAccessor>()));
             }).CreateMapper());
+
+			#region define repositories
+			services.AddScoped<IUserRepository, UserRepository>();
+			#endregion
 
 			#region define services
 			services.AddScoped<IResult, Result>();
