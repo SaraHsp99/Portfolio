@@ -1,0 +1,83 @@
+﻿@using ClinicSata.Web.Models.RoleModels
+@model RoleViewModel
+
+<script>
+    $(document).ready(function () {
+        $('tr').click(function () {
+            $('tr').removeClass('highligh-row1');
+            $(this).addClass('highligh-row1');
+        });
+
+    })
+</script>
+
+<table class="sataTable">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th> نام نقش </th>
+            <th>توضیحات </th>
+            <th>فعال</th>
+            <th>ویرایش</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            var
+            Roles = Model.RoleDtos;
+            var n = 1;
+            if(Roles.Count>0){
+                foreach (var role in Roles)
+                {
+                    <tr onclick="GetRolePermissionByRoleId(@role.Id)">
+                        <td>
+                            @n
+                        </td>
+                        <td>
+                            @role.RoleName
+                        </td>
+                        <td>
+                            @role.Description
+                        </td>
+
+                        <td>
+                            @{
+                                var DisActive = role.IsDelete.Value;
+                                if (!DisActive)
+                                {
+                                    <span style="font-size:medium" class="col-md-1">
+                                        <i onclick="statusActiveRole(@role.Id)" class="fa-regular fa-square-check" style="color:blue"></i>
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span style="font-size:medium" class="col-md-1">
+                                        <i onclick="statusActiveRole(@role.Id)" class="fa-regular fa-square" style="color: red"></i>
+                                    </span>
+                                }
+                            }
+
+                        </td>
+                        <td>
+                            <i onclick="editRoleModal(@role.Id)" class="text-warning fa fa-edit">
+                            </i>
+                        </td>
+                        @*<td>
+            <a class="dropdown-item" asp-controller="User" asp-action="GetUserPermission" asp-route-userId="@user.Id">
+            <i class="bx bx-user me-2"></i>
+            دسترسی ها
+            </a>
+            </td>*@
+                    </tr>
+                    n++;
+                }
+            }
+      
+        }
+
+    </tbody>
+</table>
+<div class="modal fade" id="editRole">
+</div>
+
+@*<partial name="_SiteMessage" />*@

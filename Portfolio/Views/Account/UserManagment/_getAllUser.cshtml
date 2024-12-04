@@ -1,0 +1,87 @@
+﻿@using ClinicSata.Web.Models.UserModels
+@using ClinicSata.Core.Common
+@using ClinicSata.Core.Interfaces.AuthenticateManagerInterface.Dtoes
+@model UserViewModel
+@{
+    var userPermissions = (List<UserPermissionDto>)ViewBag.GetPermissionUser;
+}
+<table class="sataTable">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th> نام کاربری </th>
+            <th>نام </th>
+            <th>ایمیل</th>
+            <th>فعال</th>
+            <th>ویرایش</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            var
+            Users = Model.UserDtos;
+            var n = 1;
+            foreach (var user in Users)
+            {
+                <tr onclick="GetUserPermissionByUserId(@user.Id)">
+                    <td>
+                        @n
+                    </td>
+                    <td>
+                        @user.UserName
+                    </td>
+                    <td>
+                        @user.FullName
+                    </td>
+                    <td>
+                        @user.Email
+                    </td>
+                    @{
+                        if (userPermissions.Any(x => x.Permission.PermissionName == PermissionNames.UserManagment_user_status_Edit))
+                        {
+                            <td onclick="statusActiveUser(@user.Id)">
+                                @{
+                                    var DisActive = user.IsActive;
+                                    if (DisActive == true)
+                                    {
+                                        <span style="font-size:medium" class="col-md-1">
+                                            <i class="fa-regular fa-square-check" style="color:blue"></i>
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span style="font-size:medium" class="col-md-1">
+                                            <i class="fa-regular fa-square" style="color: red"></i>
+                                        </span>
+                                    }
+                                }
+                            </td>
+                        }
+                    }                    @{
+                        if (userPermissions.Any(x => x.Permission.PermissionName == PermissionNames.UserManagment_user_Edit))
+                        {
+                            <td>
+                                <i onclick="editUserModal(@user.Id)" class="text-warning fa fa-edit" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScroll" aria-controls="offcanvasScroll">
+                                </i>
+                            </td>
+                        }
+                    }
+
+                </tr>
+                n++;
+            }
+        }
+
+    </tbody>
+</table>
+<div class="offcanvas offcanvas-end" data-bs-scroll="true" data-bs-backdrop="true" tabindex="-1" id="offcanvasScroll" aria-labelledby="offcanvasScrollLabel" style="visibility: visible;width: 43%;">
+    <partial name="~/Views/User/UserManagment/_editUser.cshtml" model=Model />
+</div>
+@*<div id="siteMessage">
+    <partial name="_SiteMessage" />
+</div>
+*@
+
+<div id="messageModel">
+    <partial name="~/Views/Shared/_SiteMessageJs.cshtml" model="Model.MassageModel" />
+</div>

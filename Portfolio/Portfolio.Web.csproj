@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Portfolio.EntitiyFramework\Portfolio.Infrastructure.csproj" />
+    <ProjectReference Include="..\Portfolio.IOC\Portfolio.IOC.csproj" />
   </ItemGroup>
 
 </Project>

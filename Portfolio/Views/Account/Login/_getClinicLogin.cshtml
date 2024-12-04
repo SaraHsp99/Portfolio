@@ -1,0 +1,25 @@
+﻿@using ClinicSata.Core.Interfaces.UserInterfaces.Dtoes
+@model LoginDto
+
+<div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title secondary-font" id="exampleModalLabel5">انتخاب کلینیک/مطب</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form asp-action=insertPersonalClinicsLogin asp-controller=user method="post">
+                <input type="hidden" asp-for="PrnId"/>
+                <div class="row">
+                    <label  class="form-label">کلینیک/مطب مورد نظر را انتخاب کنید</label>
+                    <select class="form-select" asp-for="ClinicId" asp-items="@(new SelectList(Model.PrnClncsDtos, "Value", "Text"))">
+                    </select>
+                 @*   <input type="hidden" asp-for="ClinicId" />*@
+                </div>
+                <div class="mt-2">
+                <button type="submit" class="btn btn-primary me-2">ورود به سیستم</button>
+                </div>
+            </form>                
+        </div>
+    </div>
+</div>

@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Portfolio.Infrastructure;
+using Portfolio.IOC;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<PortfolioDbContext>(options =>
@@ -7,7 +8,7 @@ builder.Services.AddDbContext<PortfolioDbContext>(options =>
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
+builder.Services.RegisterService();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

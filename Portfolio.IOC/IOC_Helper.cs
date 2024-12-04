@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Portfolio.Core.Entities.ClassBases;
 using Portfolio.Core.Interfaces.Repositories;
+using Portfolio.Core.Interfaces.Services.Account;
 using Portfolio.Core.Interfaces.Services.CacheInterfaces;
 using Portfolio.Core.RegisterAutoMapper;
 using Portfolio.Infrastructure.Repositories;
+using Portfolio.Provider.AccountProvider;
 using Portfolio.Provider.CacheProvider;
 using System;
 using System.Collections.Generic;
@@ -32,6 +34,7 @@ namespace Portfolio.IOC
 			#region define services
 			services.AddScoped<IResult, Result>();
 			services.AddScoped<ICacheService, CacheService>();
+			services.AddScoped<IUserService, UserService>();
 			#endregion
 		}
 	}

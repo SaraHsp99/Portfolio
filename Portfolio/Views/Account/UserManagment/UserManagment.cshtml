@@ -1,0 +1,59 @@
+﻿@using ClinicSata.Web.Models.UserModels
+@using ClinicSata.Core.Common
+@using ClinicSata.Core.Interfaces.AuthenticateManagerInterface.Dtoes
+@model UserViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    var userPermissions = (List<UserPermissionDto>)ViewBag.GetPermissionUser;
+}
+@section scripts {
+    <script>
+
+    </script>
+    <script src="~/js/user/user.js"></script>
+}
+<div class="row">
+    @*    <div class="col-md-6 mb-3">
+    <button class="btn btn-outline-primary fa-solid fa-plus" onclick="editUserModal(null)"></button>
+    <label class="form-label" style="padding:10px"> کاربر جدید</label>
+    </div>
+    <div class="col-md-6 mb-3">
+    <button class="btn btn-success fa-solid " onclick="setPermissionAllUser()">به روزرسانی دسترسی</button>
+    </div>*@
+    <div class="col-md-6 mb-3">
+        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+            @{
+                if (userPermissions.Any(x => x.Permission.PermissionName == PermissionNames.UserManagment_user_Add))
+                {
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio1" checked autocomplete="off">
+                    <label onclick="editUserModal(null)" class="btn btn-outline-primary fa-solid" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScroll" aria-controls="offcanvasScroll" for="btnradio1">
+                        <i class="bx bx-user-plus"></i>  کاربر جدید
+                    </label>
+                }
+            }
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+            <label class="btn btn-outline-primary" onclick="setPermissionAllUser()" for="btnradio2">
+                به روزرسانی دسترسی
+            </label>
+        </div>
+    </div>
+    <div class="col-md-6 mb-3">
+        <button style="display:none" class=" flashing-Light" type="submit" onclick="ReStart()">
+            راه اندازی مجدد
+        </button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6" id="getAllUser">
+        <partial name="~/Views/User/UserManagment/_getAllUser.cshtml" model="Model" />
+    </div>
+    <div class="col-md-6" id="getUserPermission">
+        <partial name="~/Views/User/UserManagment/_getUserPermission.cshtml" model="Model" />
+    </div>
+</div>
+<div id="messageModel">
+    <partial name="~/Views/Shared/_SiteMessageJs.cshtml" model="Model.MassageModel" />
+</div>
+<partial name="_SiteMessage" />

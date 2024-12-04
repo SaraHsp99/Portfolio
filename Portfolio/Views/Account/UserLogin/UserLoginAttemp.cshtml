@@ -1,0 +1,76 @@
+﻿@using ClinicSata.Core.Interfaces.UserInterfaces.Dtoes;
+@using ClinicSata.Web.Models.UserModels
+@model UserLoginAttemptViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section scripts{
+    <script src="~/js/user/allUserLoginAttemp.js"></script>
+
+}
+<div class="row">
+    <div class=col-md-3>
+        <div class="form-group">
+            <label> تاریخ ورود</label>
+
+            <div class="input-group input-group-sm mb-3">
+                <input onchange="getAllUserLogin()" asp-for=datePersian type="text" class="form-control form-control-sm " placeholder="تاریخ">
+
+            </div>
+        </div>
+    </div>
+    </div>
+    <table class="sataTablelight">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th> تاریخ </th>
+                <th>  کاربر </th>
+                <th> نام کاربری </th>
+                <th>IP </th>
+                <th>مرورگر</th>
+                <th>موفق</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var ul in Model.userLoginAttemptDtos.Select((v, i) => new { i, v }))
+            {
+                <tr>
+                    <td>
+                        @(ul.i + 1)
+                    </td>
+                    <td>
+                        @ul.v.PDate
+                    </td>
+                    <td>
+                        @ul.v.FullName
+                    </td>
+                    <td>
+                        @ul.v.UserName
+                    </td>
+                    <td>
+                        @ul.v.ClientIpAddress
+                    </td>
+                    <td>
+                        @ul.v.BrowserInfo
+                    </td>
+                    <td>@(ul.v.IsLogin ? "موفق" : "نا موفق")</td>
+                </tr>
+            }
+
+
+        </tbody>
+    </table>
+    <script>
+        datePersian = document.querySelector('#datePersian');
+            if (datePersian) {
+                datePersian.flatpickr({
+                    monthSelectorType: 'static',
+                    locale: 'fa',
+                    altInput: true,
+                    altFormat: 'Y/m/d',
+                    disableMobile: true,
+                    //maxDate: "today",
+                });
+            }
+    </script>

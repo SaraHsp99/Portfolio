@@ -1,0 +1,82 @@
+﻿@using ClinicSata.Core.Interfaces.UserInterfaces.Dtoes
+@model ChangePassDto
+
+
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title secondary-font" id="exampleModalLabel5">تغییر کلمه عبور</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="formChangePassword" asp-action="ChangePassSave" asp-controller="user">
+
+                    <div class="row">
+                        <div class="col-12">
+
+                            <label asp-for="CurrentPass"></label>
+                            <span class="text-danger" asp-validation-for="CurrentPass"></span>
+                            <input type="password" asp-for="CurrentPass" class="form-control" />
+                        </div>
+                        <div class="col-12">
+                            <label asp-for="NewPass"></label>
+                            <span class="text-danger" asp-validation-for="NewPass"></span>
+
+                            <input type="password" asp-for="NewPass" class="form-control" />
+                        </div>
+                        <div class="col-12">
+                            <label asp-for="NewRePass"></label>
+                            <span class="text-danger" asp-validation-for="NewRePass"></span>
+
+                            <input type="password" asp-for="NewRePass" class="form-control" />
+                        </div>
+                        <div class="col-3">
+                            <button type="button" id="btnChangePass" class="btn btn-primary btn-block btn-flat"><i class="bx bx-save" style="font-size:25px"></i>ذخیره</button>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                </form>
+                @{
+                    if (!string.IsNullOrEmpty(Model.Message))
+                    {
+                        <div class="alert alert-danger" role="alert">
+                            @Model.Message
+                        </div>
+                    }
+                }
+
+
+            </div>
+        </div>
+    </div>
+
+<script>
+    $("#btnChangePass").click(function () {
+        
+        //if (!CheckForm("formChangePassword"))
+        //    return;
+        //if ($("#NewRePass").val() != $("#NewPass").val()) {
+        //    $("#errorNewRePass").text("تکرار رمز عبور با رمز عبور برابر نمی باشد");
+        //    return;
+        //}
+        var data1 = $("#formChangePassword").serialize();
+        $.ajax({
+            type: 'post',
+            url: "/User/ChangePassSave",
+            data: data1
+            ,
+            success: function (result) {
+                
+                $("#changePassModal").empty();
+
+                $("#changePassModal").html(result);
+                $('#changePassModal').modal('show')
+
+            },
+            error: function (data) {
+                alert("در ارتباط شما با سرور خطایی رخ داده است");
+            }
+        });
+
+    })
+</script>

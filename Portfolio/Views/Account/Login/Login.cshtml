@@ -1,0 +1,122 @@
+﻿@using ClinicSata.Core.Interfaces.UserInterfaces.Dtoes
+@model LoginDto
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+<div class="authentication-wrapper authentication-cover">
+    <div class="authentication-inner row m-0">
+        <div class="d-flex col-12 col-lg-5 col-xl-4 align-items-center authentication-bg p-sm-5 p-4">
+            <div class="w-px-400 mx-auto text-center">
+                <!-- Logo -->
+                <div class="app-brand mb-4" style="height: 56px; padding: 8px;">
+                    <a href="login" class="app-brand-link" style="margin:0 auto">
+                        @* <span class="app-brand-logo demo">*@
+                        <span style="width:74px">
+                            <img width="60px" src="~/image/sata-logo.svg" />
+                        </span>
+                    </a>
+
+                </div>
+                <span style="font-size: 16px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.69;
+  letter-spacing: normal;
+  text-align: right;
+  color: #0c6494;" class="app-brand-text demo menu-text fw-bold ms-2">سلامت الکترونیک تامین(ساتا)</span>
+
+                <!-- /Logo -->
+                <h4 class="mb-2" style="  font-size: 16px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.69;
+  letter-spacing: normal;
+  text-align: right;
+  color: #0c6494;
+text-align:center;
+margin-top:30px">
+                    سامانه جامع مطب رهیا
+                </h4>
+                <p class="mb-4" style=" font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.71;
+  letter-spacing: normal;
+  text-align: right;
+  color: #0c6494;
+text-align:center">به سامانه جامع مطب رهیا خوش آمدید!</p>
+                <form asp-action=login asp-controller=user method="post" class="mb-3" id="partialLoginForm" style="text-align:right">
+                    <div class="mb-3">
+                        <label asp-for="UserName" class="form-label "></label>
+                        <input type="text" class="form-control text-start " dir="ltr" asp-for=UserName placeholder="کد ملی خود را وارد کنید" autofocus>
+                    </div>
+                    <div class="mb-3 form-password-toggle">
+                        <div class="d-flex justify-content-between">
+                            <label class="form-label" asp-for="StrPassword">رمز عبور</label>
+                            <button type="button" class="btnLink btnModal" data-url="/User/ForgotPassword" id="forgetPass">
+                                <span>رمز عبور را فراموش کردید؟</span>
+                            </button>
+                        </div>
+                        <div class="input-group input-group-merge">
+                            <input type="password" class="form-control text-start" dir="ltr" asp-for="StrPassword" placeholder="············" aria-describedby="password">
+                            <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" asp-for=RememberMe>
+                            <label class="form-check-label" for="remember-me"> به خاطر سپاری </label>
+                        </div>
+                    </div>
+                    <button type="button" data-toggle="modal" onclick="clinicLogin()" class="btn btn-primary d-grid w-100">
+                        ورود
+                    </button>
+                </form>
+                <p class="text-center">
+                    <span>کاربر جدید هستید؟</span>
+                    <button class="btnLink btnModal" data-url="/User/UserRegister">
+                        <span>یک حساب بسازید</span>
+                    </button>
+                </p>
+                <div class="divider my-4">
+                    <div class="divider-text">یا</div>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <a href="javascript:;" class="btn btn-icon btn-label-facebook me-3">
+                        <i class="tf-icons bx bxl-facebook"></i>
+                    </a>
+                    <a href="javascript:;" class="btn btn-icon btn-label-google-plus me-3">
+                        <i class="tf-icons bx bxl-google-plus"></i>
+                    </a>
+                    <a href="javascript:;" class="btn btn-icon btn-label-twitter">
+                        <i class="tf-icons bx bxl-twitter"></i>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+        <!-- /Left Text -->
+        <div class="d-none d-lg-flex col-lg-7 col-xl-8 align-items-center" style="padding:0">
+            <div class="flex-row text-center mx-auto" style="background-image:url('/bg-1.svg'); width:100%;height:100%;background-size: cover;">
+            </div>
+        </div>
+        <!-- /Left Text -->
+        <!-- Login -->
+        <!-- /Login -->
+    </div>
+</div>
+
+<div class="modal fade animate__animated animate__bounceInLeft fadeIn" id="clinicLogin">
+    @*   <partial name="~/Views/User/Login/_getClinicLogin.cshtml" model=Model />*@
+</div>
+<div class="modal fade animate__animated animate__bounceInLeft fadeIn" id="forgotPassword">
+    @*    <partial name="~/Views/User/Login/_forgotPassword.cshtml" model=Model />*@
+</div>
+
+
+

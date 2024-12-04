@@ -1,0 +1,177 @@
+﻿@using ClinicSata.Web.Models.UserModels
+@model UserViewModel
+@{
+    if (@Model.OrgnId != null)
+    {
+    <script>
+                        $(document).ready(function () {
+                            var orgnid = @(Model.OrgnId);
+                $('#userClinicsselect2').val(orgnid).trigger('change');
+                        })
+    </script>
+    }
+}
+<div class="offcanvas-header">
+    <h5 id="offcanvasScrollLabel" class="offcanvas-title">نمایش کاربر</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+</div>
+<div class="offcanvas-body my-auto mx-0 flex-grow-0">
+    <div class="card-body register-card-body">
+        <form id="insertFormeditUser">
+            <input type="hidden" asp-for=UserDto.Id />
+           <input type="hidden" asp-for=UserDto.PrnId />
+            <div class="row">
+                <div class="col-md-6">
+                    <span style="color:red" asp-validation-for=UserDto.UserName></span>
+                    <label asp-for=UserDto.UserName></label>
+                    <div class="input-group input-group-sm mb-3">
+                        <input style="text-align:right" type="text" asp-for=UserDto.UserName class="form-control form-control-sm" placeholder="نام کاربری">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="bx bx-id-card" style="font-size: 25px"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <span style="color:red" asp-validation-for=UserDto.FirstName></span>
+                    <label asp-for=UserDto.FirstName></label>
+                    <div class="input-group mb-3">
+                        <input style="text-align:right" type="text" asp-for=UserDto.FirstName class="form-control" placeholder="نام ">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-user" style="height: 21px"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <span style="color:red" asp-validation-for=UserDto.FatherName></span>
+                    <label asp-for=UserDto.FatherName></label>
+                    <div class="input-group mb-3">
+                        <input style="text-align:right" type="text" asp-for=UserDto.FatherName class="form-control" placeholder="نام پدر">
+                        <div class="input-group-text">
+                            <span class="fas fa-user"></span>
+                        </div>
+                    </div>
+                    <span style="color:red" asp-validation-for=UserDto.PhoneNumber></span>
+                    <label asp-for=UserDto.PhoneNumber></label>
+                    <div class="input-group mb-3">
+                        <input style="text-align:right" type="text" asp-for=UserDto.PhoneNumber class="form-control form-control-sm" placeholder="شماره موبایل">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-phone" style="height: 21px"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <span style="color:red" asp-validation-for=UserDto.RoleIdList></span>
+                    <label>نقش مورد نظر را انتخاب کنید</label>
+                    <div class="input-group mb-3">
+                        <select class="userRoleselect2 select2 form-select" asp-for="UserDto.RoleIdList" asp-items="@(new SelectList(Model.RoleDropdown, "Value", "Text"))" multiple>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <span style="color:red" asp-validation-for=UserDto.Nty></span>
+                    <label asp-for=UserDto.Nty></label>
+                    <div class="input-group mb-3">
+                        <select class="form-select" asp-for="UserDto.Nty" asp-items="@(new SelectList(Model.NationalityDropdown, "ValueText", "Text"))">
+                            @*<option selected="" disabled="">انتخاب کنید</option>*@
+                        </select>
+                    </div>
+                    <span style="color:red" asp-validation-for=UserDto.LastName></span>
+                    <label asp-for=UserDto.LastName></label>
+                    <div class="input-group mb-3">
+                        <input style="text-align:right" type="text" asp-for=UserDto.LastName class="form-control" placeholder="نام خانوادگی">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-user" style="height: 21px"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <span style="color:red" asp-validation-for=UserDto.sex></span>
+                    <label asp-for=UserDto.sex>جنسیت</label>
+                    <div class="input-group mb-3">
+                        <select class=" form-select" asp-for="UserDto.sex" asp-items="@(new SelectList(Model.GenderDropdown, "ValueText", "Text"))">
+                            <option selected="" disabled="">انتخاب کنید</option>
+                            @{
+                                foreach (var item in Model.GenderDropdown)
+                                {
+                                    if (item.ValueText == "M" || item.ValueText == "F")
+                                    {
+                                        <option value="@item.ValueText">@Html.Raw(@item.Title)@item.Text</option>
+                                    }
+                                }
+                            }
+                        </select>
+                    </div>
+                    <span style="color:red" asp-validation-for=UserDto.Email></span>
+                    <label asp-for=UserDto.Email></label>
+                    <div class="input-group mb-3">
+                        <input style="text-align:right" type="email" class="form-control" asp-for=UserDto.Email placeholder="ایمیل">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope" style="height: 21px"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <span style="color:red" asp-validation-for=UserDto.PhyClcIdList></span>
+                    <label>کلینیک مورد نظر را انتخاب کنید</label>
+                    <div class="input-group mb-3">
+                        <select  class="userClinicsselect2 select2 form-select" asp-for="UserDto.PhyClcIdList" asp-items="@(new SelectList(Model.ClinicDropdown, "Value", "Text"))" multiple>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <!-- /.col -->@{
+                        var DisActive = Model.UserDto != null ? Model.UserDto.IsActive : true;
+                        if (DisActive == true)
+                        {
+                                        <span style="font-size:medium" class="col-md-1">
+                                            <i class="fa-regular fa-square-check" style="color:blue"></i>
+                                            فعال
+                                        </span>
+                        }
+                        else
+                        {
+                                        <span style="font-size:medium" class="col-md-1">
+                                            <i class="fa-regular fa-square" style="color: red"></i>
+                                            غیرفعال
+                                        </span>
+                        }
+                    }
+                </div>
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                    <button type="button" id="btn-insertFormEditUser" class=" btn btn-primary btn-block btn-flat">
+                        <i class="bx bx-save" style="font-size:25px;"></i>                        
+                        ثبت تغییرات</button>
+                </div>
+                <!-- /.col -->
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="messageModel">
+    <partial name="~/Views/Shared/_SiteMessageJs.cshtml" model="Model.MassageModel" />
+</div>
+<script>
+    $(document).ready(function () {
+        $(".select2").select2({
+            dropdownParent: $(".offcanvas-body")
+        });
+    });
+    $(document).ready(function () {
+        $(".userClinicsselect2").select2({
+            dropdownParent: $(".offcanvas-body")
+        });
+    });
+    $(document).ready(function () {
+        $(".userRoleselect2").select2({
+            dropdownParent: $(".offcanvas-body")
+        });
+    });
+    
+</script>
+
+<partial name="_SiteMessage" />

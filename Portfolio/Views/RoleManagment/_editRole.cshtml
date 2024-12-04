@@ -1,0 +1,49 @@
+﻿@using ClinicSata.Web.Models.RoleModels
+@model RoleViewModel
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title secondary-font" id="modalTopTitle">نمایش نقش</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="card">
+                <div class="card-body register-card-body">
+                    <form asp-action=editRole asp-controller=Role method="post">     
+                        <input type="hidden" asp-for="RoleDto.Id"/>
+                        <label asp-for=RoleDto.RoleName>
+                        </label>
+                        <div class="input-group mb-3">
+                            <span style="color:red" asp-validation-for=RoleDto.RoleName></span>
+                            <input style="text-align:right" type="text" class="form-control" asp-for=RoleDto.RoleName placeholder="نام نقش">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-user" style="height: 21px"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <label asp-for=RoleDto.Description>
+                        </label>
+                        <div class="input-group mb-3">
+                            <span style="color:red" asp-validation-for=RoleDto.Description></span>
+                            <input style="text-align:right" type="text" asp-for=RoleDto.Description class="form-control" placeholder="توضیحات ">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-user" style="height: 21px"></span>
+                                </div>
+                            </div>
+                        </div>                                                
+                            <div class="col-4">
+                                <button type="submit" class="btn btn-primary btn-block btn-flat">
+                                    <i class="bx bx-save" style="font-size:25px;"></i>                        
+                                    ثبت تغییرات</button>
+                            </div>      
+                    </form>
+                </div>
+                <!-- /.form-box -->
+            </div><!-- /.card -->
+        </div>
+    </div>
+    <!-- /.modal-content -->
+</div>

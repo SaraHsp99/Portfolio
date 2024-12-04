@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
+﻿
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Portfolio.Core.Interfaces.Services.AuthenticateManagerInterfaces;
+using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.AspNetCore.Mvc;
 
 
 namespace Portfolio.Core.Securities
@@ -51,9 +53,10 @@ namespace Portfolio.Core.Securities
                                     if (isAuth == false)
                                     {
                                         context.HttpContext.SignOutAsync();
-                                        context.Result = new RedirectResult("/account/login?permission=false");
-                                    }
-                                }
+										context.Result = new RedirectResult("/account/login?permission=false");
+
+									}
+								}
                             }
                             else
                             {

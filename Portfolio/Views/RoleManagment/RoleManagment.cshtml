@@ -1,0 +1,20 @@
+﻿@using ClinicSata.Web.Models.RoleModels
+@model RoleViewModel
+
+@section scripts{
+    <script src="~/js/role/role.js"></script>
+}
+<div class="row">
+        <div class="col-md-9 mb-3">
+            <button class="btn btn-outline-primary fa-solid fa-plus" onclick="editRoleModal(null)"></button>
+            <label class="form-label" style="padding:10px"> نقش جدید</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6" id="getAllRole">
+            <partial name="~/Views/Role/RoleManagment/_getAllRole.cshtml" model="Model" />
+        </div>
+        <div class="col-md-6" id="getRolePermission">
+            <partial name="~/Views/Role/RoleManagment/_getRolePermission.cshtml" model="Model" />
+        </div>
+    </div>
