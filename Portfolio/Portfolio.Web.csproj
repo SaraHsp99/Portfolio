@@ -7,6 +7,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\Account\Login\**" />
+    <Compile Remove="Views\Account\UserLogin\**" />
+    <Compile Remove="Views\Account\UserManagment\**" />
+    <Content Remove="Views\Account\Login\**" />
+    <Content Remove="Views\Account\UserLogin\**" />
+    <Content Remove="Views\Account\UserManagment\**" />
+    <EmbeddedResource Remove="Views\Account\Login\**" />
+    <EmbeddedResource Remove="Views\Account\UserLogin\**" />
+    <EmbeddedResource Remove="Views\Account\UserManagment\**" />
+    <None Remove="Views\Account\Login\**" />
+    <None Remove="Views\Account\UserLogin\**" />
+    <None Remove="Views\Account\UserManagment\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="wwwroot\site\" />
   </ItemGroup>
 
