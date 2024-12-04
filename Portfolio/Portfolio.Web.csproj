@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -10,15 +10,19 @@
     <Compile Remove="Views\Account\Login\**" />
     <Compile Remove="Views\Account\UserLogin\**" />
     <Compile Remove="Views\Account\UserManagment\**" />
+    <Compile Remove="Views\RoleManagment\**" />
     <Content Remove="Views\Account\Login\**" />
     <Content Remove="Views\Account\UserLogin\**" />
     <Content Remove="Views\Account\UserManagment\**" />
+    <Content Remove="Views\RoleManagment\**" />
     <EmbeddedResource Remove="Views\Account\Login\**" />
     <EmbeddedResource Remove="Views\Account\UserLogin\**" />
     <EmbeddedResource Remove="Views\Account\UserManagment\**" />
+    <EmbeddedResource Remove="Views\RoleManagment\**" />
     <None Remove="Views\Account\Login\**" />
     <None Remove="Views\Account\UserLogin\**" />
     <None Remove="Views\Account\UserManagment\**" />
+    <None Remove="Views\RoleManagment\**" />
   </ItemGroup>
 
   <ItemGroup>

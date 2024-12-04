@@ -1,4 +1,9 @@
-﻿<header class="main-header menu-absolute">
+﻿<style>
+    .menu-btns {
+    gap: 10px;
+}
+</style>
+<header class="main-header menu-absolute">
     <!--Header-Upper-->
     <div class="header-upper">
         <div class="container container-1620 clearfix">
@@ -27,6 +32,16 @@
                                     <button>
                                         <i class="far fa-envelope"></i>
                                     </button>
+                        @*              <div class="ml-auto"> *@
+                                        @if (User.Identity.IsAuthenticated)
+                                        {
+                    <a class="btn theme-btn" href="/Account/Profile">پروفایل من</a>
+                                        }
+                                        else
+                                        {
+                        <a class="btn theme-btn" href="/Account/Login">ورود یا ثبت‌نام</a>
+                                        }
+    @*     </div> *@
                                 </div>
                             </div>
 
@@ -78,14 +93,28 @@
                 </div>
 
                 <!-- Message Button -->
-                <div class="menu-btns">
-                    <!-- message sidbar -->
-                    <div class="menu-sidebar mobile-hidden" id="message_btn">
-                        <button>
-                            <i class="far fa-envelope"></i>
-                        </button>
-                    </div>
-                </div>
+<div class="menu-btns d-flex align-items-center">
+    <!-- Message Sidebar Button -->
+        <div>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <a class="btn theme-btn ml-2" href="/Account/Profile">پروفایل من</a>
+        }
+        else
+        {
+            <a class="btn theme-btn ml-2" href="/Account/Register">ورود یا ثبت‌نام</a>
+        }
+    </div>
+    <div class="menu-sidebar mobile-hidden" id="message_btn">
+        <button>
+            <i class="far fa-envelope"></i>
+        </button>
+    </div>
+    
+    <!-- Authentication Button -->
+
+</div>
+
 
             </div>
         </div>
