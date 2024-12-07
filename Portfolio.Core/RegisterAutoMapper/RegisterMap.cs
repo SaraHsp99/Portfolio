@@ -19,6 +19,7 @@ namespace Portfolio.Core.RegisterAutoMapper
         public RegisterMap(IHttpContextAccessor httpContextAccessor)
         {
 			CreateMap<User, RegisterDto>().ReverseMap();
+			CreateMap<User, UserDto>().ReverseMap();
 
 		}
     }

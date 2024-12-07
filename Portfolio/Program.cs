@@ -5,7 +5,7 @@ using Portfolio.IOC;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<PortfolioDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
+builder.Services.AddHttpContextAccessor();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.RegisterService();

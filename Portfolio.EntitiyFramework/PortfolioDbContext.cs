@@ -18,6 +18,12 @@ public class PortfolioDbContext : DbContext
 
     }
     public DbSet<User> Users { get; set; }
+    public DbSet<Permission> Permissions { get; set; }
+    public DbSet<Role> Roles { get; set; }
+    public DbSet<RolePermission> RolePermissions { get; set; }
+    public DbSet<UserLoginAttempt> UserLoginAttemptds { get; set; }
+    public DbSet<UserPermission> UserPermissions { get; set; }
+    public DbSet<UserRole> UserRoles { get; set; }
 
     #region on model creating
     protected override void OnModelCreating(ModelBuilder modelBuilder)

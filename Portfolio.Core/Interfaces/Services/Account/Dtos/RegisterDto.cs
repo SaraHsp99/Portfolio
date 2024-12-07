@@ -21,10 +21,10 @@ namespace Portfolio.Core.Interfaces.Services.Account.Dtos
 		[Required(ErrorMessage = "Password is required.")]
 		[StringLength(100, MinimumLength = 6, ErrorMessage = "Password must be between 6 and 100 characters.")]
 		[DataType(DataType.Password)]
-		public string Password { get; set; }
+		public string StrPassword { get; set; }
 
 		[Required(ErrorMessage = "Please confirm your password.")]
-		[Compare("Password", ErrorMessage = "Passwords do not match.")]
+		[Compare("StrPassword", ErrorMessage = "Passwords do not match.")]
 		public string RePassword { get; set; }
 	}
 

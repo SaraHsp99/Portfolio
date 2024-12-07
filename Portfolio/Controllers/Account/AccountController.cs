@@ -12,297 +12,126 @@ using Portfolio.Core.Interfaces.Services.AuthenticateManagerInterfaces;
 using Portfolio.Core.Interfaces.Services.CacheInterfaces;
 using Portfolio.Web.Models;
 using System.Security.Claims;
+using Portfolio.Core.Entities.Account;
+using Portfolio.Core.Common;
+using Portfolio.Provider.AccountProvider;
+using Portfolio.Provider.CacheProvider;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Portfolio.Web.Controllers.Account;
 public class AccountController : Controller
 {
-	private readonly IUserService _userService;
+    private readonly IHttpContextAccessor _contextAccessor;
+    private readonly IUserService _userService;
+    private readonly Core.Entities.ClassBases.IResult _result;
 
-	public AccountController(IUserService userService)
-	{
-		_userService = userService;
-	}
-	[HttpGet]
-	public IActionResult Register()
-	{
-		var model = new AccountViewModel();
-		return View( model);
-	}
-	//[AllowAnonymous]
-	//[ValidateAntiForgeryToken]
-	[HttpPost]
-	public async Task<IActionResult> RegisterUser(AccountViewModel input)
-	{
-		if (!ModelState.IsValid)
-		{
 
-		}
-			var result = await _userService.CreateUser(input.registerDto);
-			return Json(result);
-		
-	}
-	[AllowAnonymous]
-
-    //[HttpGet]
-    //public IActionResult Login(string ReturnUrl)
-    //{
-    //	HttpContext.Session.SetString(ClaimName.Language, "En");
-    //	var identity = (System.Security.Claims.ClaimsIdentity)HttpContext.User.Identity;
-    //	if (identity.IsAuthenticated)
-    //	{
-    //		return Redirect(ReturnUrl ?? "/");
-    //	}
-    //	var loginDto = new LoginDto();
-    //	loginDto.ReturnUrl = ReturnUrl;
-    //	loginDto.OrgnId = (loginDto.PhyClncsDtos.FirstOrDefault() == null) ? null : loginDto.PhyClncsDtos.FirstOrDefault().OrgnId;
-    //	return View("~/Views/User/Login/Login.cshtml", loginDto);
-    //}
+    public AccountController(IUserService userService, Core.Entities.ClassBases.IResult result, IHttpContextAccessor contextAccessor)
+    {
+        _userService = userService;
+        _result = result;
+        _contextAccessor = contextAccessor;
+    }
+    [HttpGet]
+    public IActionResult Register()
+    {
+        var model = new AccountViewModel();
+        return View(model);
+    }
+    [HttpGet]
+    public IActionResult Login()
+    {
+        var model = new LoginDto();
+        return View(model);
+    }
     //[AllowAnonymous]
+    //[ValidateAntiForgeryToken]
+    [HttpPost]
+    public async Task<IActionResult> RegisterUser(AccountViewModel input)
+    {
+        if (!ModelState.IsValid)
+        {
 
-    //[HttpPost]
-    //[Route("Account/login")]
-    //public IActionResult Login(LoginDto input)
-    //{
-    //	var result = _userService.Login(input);
+        }
+        var result = await _userService.CreateUser(input.registerDto);
+        return Json(result);
 
-    //	var browserInfo = Request.Headers["User-Agent"].ToString();
-    //	_userService.SaveUserLoginAttempt(browserInfo, HttpContext.Connection.RemoteIpAddress.ToString(), result.userDto?.Id, input.UserName, result.LoginResult == LoginResult.Success);
+    }
 
-    //	switch (result.LoginResult)
-    //	{
-    //		case LoginResult.Success:
-    //			return RedirectToAction("GetPersonalClinicsLogin", new { prnId = result.userDto.PrnId, rememberMe = input.RememberMe, returnUrl = input.ReturnUrl });
+ 
+    [AllowAnonymous]
 
-    //		case LoginResult.IncorrecrPassword:
-    //			_result.Rsl = false;
-    //			_result.Message = AllMessage.UserNameIsNotClinic;
-    //			return Json(_result);
+    [HttpPost]
+    public IActionResult Login(LoginDto input)
+    {
+        var returnUrl = "";
+        var identity = (System.Security.Claims.ClaimsIdentity)HttpContext.User.Identity;
+        if (identity.IsAuthenticated)
+        {
+            return Redirect(returnUrl ?? "/");
+        }
+        var result = _userService.Login(input);
 
-    //		case LoginResult.IsLock:
-    //			_result.Rsl = false;
-    //			_result.Message = AllMessage.IsLock;
-    //			return Json(_result);
+        var browserInfo = Request.Headers["User-Agent"].ToString();
+        //    _userService.SaveUserLoginAttempt(browserInfo, HttpContext.Connection.RemoteIpAddress.ToString(), result.userDto?.Id, input.UserName, result.LoginResult == LoginResult.Success);
 
-    //		case LoginResult.NotExistUser:
-    //			_result.Rsl = false;
-    //			_result.Message = AllMessage.UserNameIsNotClinic;
-    //			return Json(_result);
+        if (result.Result.Rsl)
+        {
+            if (Authenticate(result.UserDto, true))
+            {
+                if (string.IsNullOrEmpty(returnUrl))
+                {
+                    returnUrl = "/";
+                    return Json(new { url = returnUrl });
+                }
+                return Json(new { url = returnUrl });
+            }
+            return RedirectToAction("Index", "Home");
 
-    //		case LoginResult.NotActive:
-    //			_result.Rsl = false;
-    //			_result.Message = AllMessage.NotActive;
-    //			return Json(_result);
-    //	}
-    //	return View("~/Views/User/Login/Login.cshtml");
-    //}
-	public IActionResult AccessDenied()
-	{
-		return View();
-	}
+        }
+
+        return Json(_result);
+    }
+    [AllowAnonymous]
+    [HttpGet("logout")]
+    public IActionResult Logout()
+    {
+        HttpContext.SignOutAsync();
+        return Redirect("/account/login");
+    }
+
+    public IActionResult AccessDenied()
+    {
+        return View();
+    }
+
+
+    #region Private Method
+    private bool Authenticate(UserDto input, bool rememberMe = false)
+    {
+        var superAdmin = input.Email.Trim() == "SuperAdmin@Sarahsp.com" ? "SuperAdmin@Sarahsp.com" : string.Empty;
+
+        var claim = new List<Claim> {
+            new Claim(ClaimTypes.NameIdentifier,input.Id.ToString()),
+            new Claim(ClaimName.Email,input.Email),
+            new Claim(ClaimName.UserId,input.Id.ToString()),
+
+            };
+        var identity = new ClaimsIdentity(claim, CookieAuthenticationDefaults.AuthenticationScheme);
+        var principal = new ClaimsPrincipal(identity);
+        var properties = new AuthenticationProperties
+        {
+            IsPersistent = rememberMe,
+            ExpiresUtc = DateTime.UtcNow.AddDays(1),
+
+        };
+        HttpContext.SignInAsync(principal, properties);
+        _contextAccessor.HttpContext.Session.SetString("UserId", input.Id.ToString());
+        return true;
+    }
+    #endregion
 }
 
-
-//public class UserController : BaseController
-//{
-//    private readonly IUserService _userService;
-//    private readonly IHttpContextAccessor _contextAccessor;
-//    private readonly ICacheService _cacheService;
-//    private readonly IAuthenticateManagerService _authenticateManagerService;
-//    private readonly IMysession _session;
-//    private readonly ClinicSata.Core.Entities.ClassBases.IResult _result;
-//    private readonly IOptions<Language> _language;
-//    public UserController(IUserService userService,
-//        IHttpContextAccessor contextAccessor,
-//        ICacheService cacheService,
-//        IAuthenticateManagerService authenticateManagerService,
-//        IMysession session,
-//        ClinicSata.Core.Entities.ClassBases.IResult result,
-//        IOptions<Language> language)
-//    {
-//        _userService = userService;
-//        _contextAccessor = contextAccessor;
-//        _cacheService = cacheService;
-//        _authenticateManagerService = authenticateManagerService;
-//        _session = session;
-//        _result = result;
-//        _language = language;
-//    }
-//    [AllowAnonymous]
-//    public IActionResult UserRegister()
-//    {
-
-//        return PartialView("~/Views/User/Register/_Register.cshtml");
-//    }
-//    [HttpPost]
-//    public IActionResult GetPhoneNumberRegister(string phoneNumber)
-//    {
-//        return Json(_userService.SendCodeNumber(phoneNumber, false, SmsTyp.Register));
-//    }
-//    [HttpPost]
-//    public IActionResult ValidateCodeRegister(string phoneNumber, string code)
-//    {
-//        return Json(_userService.ValidateCode(phoneNumber, code, SmsTyp.Register));
-//    }
-
-//    [AllowAnonymous]
-//    [HttpGet]
-//    public IActionResult Register()
-//    {
-//        var model = new UserViewModel
-//        {
-//            NationalityDropdown = _userService.GetNationality(),
-//            GenderDropdown = _userService.GetGender(),
-//            SpecialyDropdown = _userService.Getspecialty(),
-//            StateDropdown = _userService.GetState()
-//        };
-//        model.UserDto.PhoneNumber = _userService.GetPhoneNumberValidate();
-//        return View("~/Views/User/Register/Register.cshtml", model);
-//    }
-//    [AllowAnonymous]
-//    [HttpPost]
-//    public IActionResult Register(UserViewModel model)
-//    {
-//        ModelState.Remove("UserDto.Prn");
-//        RemoveValidate("Phy", true);
-//        RemoveValidate("Prn", true);
-//        RemoveValidate("UserDtos", true);
-//        RemoveValidate("userPermissionDtos", true);
-//        RemoveValidate("rolePermissionDtos", true);
-//        RemoveValidate("Orgn", true);
-//        RemoveValidate("PermissionDto", true);
-//        RemoveValidate("UserDto.Prn", true);
-//        RemoveValidate("RoleDto", true);
-//        RemoveValidate("UserDto.RoleIdList", true);
-//        RemoveValidate("UserDto.Nty", true);
-//        RemoveValidate("UserDto.OrgnIdList", true);
-//        RemoveValidate("UserDto.PhyClcIdList", true);
-//        RemoveValidate("UserDto.StrPassword", true);
-//        RemoveValidate("UserDto.StrConfirmPassword", true);
-//        RemoveValidate("UserDto.PhoneNumber", true);
-//        RemoveValidate("MassageModel", true);
-//        if (!ModelState.IsValid)
-//        {
-//            _result.Rsl = false;
-//            _result.Message = AllMessage.AllDataMostCompleteAndClear;
-//            return Json(_result);
-//        }
-//        model.UserDto.StrPassword = model.UserDto.UserName;
-//        model.UserDto.StrConfirmPassword = model.UserDto.UserName;
-//        var result = _userService.RegisterUserPhy(model.UserDto);
-//        return Json(result);
-//    }
-//    [AllowAnonymous]
-//    [HttpPost]
-//    public IActionResult RegisterPhy(UserViewModel model)
-//    {
-//        ModelState.Remove("UserDto.Prn");
-//        RemoveValidate("Phy", true);
-//        RemoveValidate("Prn", true);
-//        RemoveValidate("UserDtos", true);
-//        RemoveValidate("userPermissionDtos", true);
-//        RemoveValidate("rolePermissionDtos", true);
-//        RemoveValidate("Orgn", true);
-//        RemoveValidate("PermissionDto", true);
-//        RemoveValidate("UserDto.Prn", true);
-//        RemoveValidate("RoleDto", true);
-//        RemoveValidate("UserDto.RoleIdList", true);
-//        RemoveValidate("UserDto.Nty", true);
-//        RemoveValidate("UserDto.OrgnIdList", true);
-//        RemoveValidate("UserDto.PhyClcIdList", true);
-//        RemoveValidate("UserDto.StrPassword", true);
-//        RemoveValidate("UserDto.StrConfirmPassword", true);
-//        RemoveValidate("MassageModel", true);
-//        RemoveValidate("UserDto.sex", true);
-//        RemoveValidate("UserDto.Email", true);
-//        RemoveValidate("UserDto.PhoneNumber", true);
-//        RemoveValidate("UserDto.FatherName", true);
-//        RemoveValidate("UserDto.FirstName", true);
-//        RemoveValidate("UserDto.UserName", true);
-//        RemoveValidate("UserDto.LastName", true);
-//        if (!ModelState.IsValid)
-//        {
-//            _result.Rsl = false;
-//            _result.Message = AllMessage.AllDataMostCompleteAndClear;
-//            return Json(_result);
-//        }
-//        var result = _userService.RegisterPhy(model.Phy);
-//        return Json(result);
-//    }
-//    [AllowAnonymous]
-
-//    [HttpPost]
-//    public IActionResult RegisterPhyClinic(UserViewModel model)
-//    {
-//        ModelState.Remove("UserDto.Prn");
-//        RemoveValidate("Phy", true);
-//        RemoveValidate("Prn", true);
-//        RemoveValidate("UserDtos", true);
-//        RemoveValidate("userPermissionDtos", true);
-//        RemoveValidate("rolePermissionDtos", true);
-//        RemoveValidate("Orgn", true);
-//        RemoveValidate("PermissionDto", true);
-//        RemoveValidate("UserDto.Prn", true);
-//        RemoveValidate("RoleDto", true);
-//        RemoveValidate("UserDto.RoleIdList", true);
-//        RemoveValidate("UserDto.Nty", true);
-//        RemoveValidate("UserDto.OrgnIdList", true);
-//        RemoveValidate("UserDto.PhyClcIdList", true);
-//        RemoveValidate("UserDto.StrPassword", true);
-//        RemoveValidate("UserDto.StrConfirmPassword", true);
-//        RemoveValidate("MassageModel", true);
-//        RemoveValidate("UserDto.sex", true);
-//        RemoveValidate("UserDto.Email", true);
-//        RemoveValidate("UserDto.PhoneNumber", true);
-//        RemoveValidate("UserDto.FatherName", true);
-//        RemoveValidate("UserDto.FirstName", true);
-//        RemoveValidate("UserDto.UserName", true);
-//        RemoveValidate("UserDto.LastName", true);
-//        if (ModelState.IsValid)
-//        {
-//            var result = _userService.AddUserClinic(model.Orgn);
-//            return Json(result);
-//        }
-//        _result.Rsl = false;
-//        _result.Message = AllMessage.AllDataMostCompleteAndClear;
-//        return Json(_result);
-//    }
-//    [AllowAnonymous]
-
-//    [HttpGet]
-//    public IActionResult AddClinicForRegister()
-//    {
-//        var prnId = _session.PrnId;
-//        var model = new ProfileViewModel();
-//        model.StateDropdown = _userService.GetState();
-//        var intVal = model.StateDropdown.FirstOrDefault().ValueText;
-//        model.CityDropdown = _userService.GetCity(intVal);
-//        return PartialView("~/Views/Profile/Clinic/_AddClinicInformation.cshtml", model);
-//    }
-//    [AllowAnonymous]
-
-//    [HttpGet]
-//    public IActionResult GetCity(string intVal)
-//    {
-//        var model = new UserViewModel();
-//        model.CityDropdown = _userService.GetCity(intVal);
-//        return PartialView("~/Views/User/Register/_getCityClinicDropdown.cshtml", model);
-//    }
-//    [AllowAnonymous]
-
-//    [HttpGet]
-//    public IActionResult Login(string ReturnUrl)
-//    {
-//        HttpContext.Session.SetString(ClaimName.Language, "En");
-//        var identity = (System.Security.Claims.ClaimsIdentity)HttpContext.User.Identity;
-//        if (identity.IsAuthenticated)
-//        {
-//            return Redirect(ReturnUrl ?? "/");
-//        }
-//        var loginDto = new LoginDto();
-//        loginDto.ReturnUrl = ReturnUrl;
-//        loginDto.OrgnId = (loginDto.PhyClncsDtos.FirstOrDefault() == null) ? null : loginDto.PhyClncsDtos.FirstOrDefault().OrgnId;
-//        return View("~/Views/User/Login/Login.cshtml", loginDto);
-//    }
 //    [AllowAnonymous]
 
 //    [HttpPost]

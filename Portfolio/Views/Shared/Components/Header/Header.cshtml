@@ -1,7 +1,62 @@
 ﻿<style>
-    .menu-btns {
-    gap: 10px;
-}
+
+    .menu-sidebar {
+        display: flex;
+        align-items: center;
+        gap: 15px; 
+    }
+
+    .auth-buttons {
+        display: flex;
+        gap: 10px;
+    }
+
+        .auth-buttons .btn {
+            margin: 0;
+        }
+
+    .btn-container {
+        padding: 10px;
+        font-size: 18px;
+        background-color: #f4f4f4; 
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+        .btn-container i {
+            color: #333;
+        }
+
+    .login-btn, .signup-btn, .logout-btn {
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 4px;
+        text-align: center;
+    }
+
+
+    .login-btn {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    .signup-btn {
+        background-color: #008CBA;
+        color: white;
+    }
+
+    .logout-btn {
+        padding: 10px 20px;
+        background-color: #f44336;
+        color: white;
+        border-radius: 4px;
+    }
+
+     
+        .login-btn:hover, .signup-btn:hover, .logout-btn:hover {
+            opacity: 0.8;
+        }
+
 </style>
 <header class="main-header menu-absolute">
     <!--Header-Upper-->
@@ -25,25 +80,31 @@
                                 </a>
                             </div>
 
-                            <!-- Message Button Mobile -->
                             <div class="menu-btns me-4">
-                                <!-- message sidbar mobile -->
+                        
                                 <div class="menu-sidebar mobile-hidden" id="message_btn_mobile">
-                                    <button>
+                                    <button class="btn-container">
                                         <i class="far fa-envelope"></i>
                                     </button>
-                        @*              <div class="ml-auto"> *@
-                                        @if (User.Identity.IsAuthenticated)
-                                        {
-                    <a class="btn theme-btn" href="/Account/Profile">پروفایل من</a>
-                                        }
-                                        else
-                                        {
-                        <a class="btn theme-btn" href="/Account/Login">ورود یا ثبت‌نام</a>
-                                        }
-    @*     </div> *@
+
+                                
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                           
+                                        <a class="btn theme-btn logout-btn" href="/Account/Profile">پروفایل من</a>
+                                        <a class="btn theme-btn logout-btn" href="/Account/Logout">خروج</a>
+                                    }
+                                    else
+                                    {
+                           
+                                        <div class="auth-buttons">
+                                            <a class="btn theme-btn login-btn" href="/Account/Login">ورود</a>
+                                            <a class="btn theme-btn signup-btn" href="/Account/Register">ثبت‌نام</a>
+                                        </div>
+                                    }
                                 </div>
                             </div>
+
 
                             <!-- Toggle Button -->
                             <button type="button" class="menu-mobile-button" id="nav_btn">
@@ -85,6 +146,17 @@
                                     </ul>
                                 </li>
                                 <li><a href="contact.html">تماس با من</a></li>
+                                  @if (User.Identity.IsAuthenticated)
+                                {
+                                    <li class="dropdown">
+                                        <a href="#">مدیریت سیستم</a>
+                                        <ul>
+                                            <li class="top"><a href="blog.html">مدیریت کاربران</a></li>
+                                            <li><a href="blog-details.html">مدیریت نقش ها</a></li>
+                                        </ul>
+                                    </li>
+                                }
+                                
                             </ul>
                         </div>
 
@@ -92,28 +164,30 @@
                     <!-- Main Menu End-->
                 </div>
 
-                <!-- Message Button -->
-<div class="menu-btns d-flex align-items-center">
-    <!-- Message Sidebar Button -->
-        <div>
-        @if (User.Identity.IsAuthenticated)
-        {
-            <a class="btn theme-btn ml-2" href="/Account/Profile">پروفایل من</a>
-        }
-        else
-        {
-            <a class="btn theme-btn ml-2" href="/Account/Register">ورود یا ثبت‌نام</a>
-        }
-    </div>
-    <div class="menu-sidebar mobile-hidden" id="message_btn">
-        <button>
-            <i class="far fa-envelope"></i>
-        </button>
-    </div>
-    
-    <!-- Authentication Button -->
+                <div class="menu-btns me-4">
+                    
+                    <div class="menu-sidebar mobile-hidden" id="message_btn_mobile">
+                        @if (User.Identity.IsAuthenticated)
+                        {
 
-</div>
+                            <a class="btn theme-btn logout-btn" href="/Account/Profile">پروفایل من</a>
+                            <a class="btn theme-btn logout-btn" href="/Account/Logout">خروج</a>
+                        }
+                        else
+                        {
+
+                            <div class="auth-buttons">
+                                <a class="btn theme-btn login-btn" href="/Account/Login">ورود</a>
+                                <a class="btn theme-btn signup-btn" href="/Account/Register">ثبت‌نام</a>
+                            </div>
+                        }
+                        <button class="btn-container" id="message_btn">
+                            <i class="far fa-envelope"></i>
+                        </button>                   
+                    </div>
+                </div>
+
+
 
 
             </div>

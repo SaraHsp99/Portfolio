@@ -11,5 +11,7 @@ namespace Portfolio.Core.Interfaces.Services.Account
 	public interface IUserService
 	{
 		Task<IResult> CreateUser(RegisterDto registerDto);
-	}
+		LoginResultDto Login(LoginDto input);
+
+    }
 }

@@ -17,52 +17,119 @@ using System.Linq;
 using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
+using Portfolio.Core.Common;
 
-namespace Portfolio.Provider.AccountProvider
+namespace Portfolio.Provider.AccountProvider;
+public class UserService : BaseProvider, IUserService
 {
-	public class UserService : BaseProvider, IUserService
-	{
-		private readonly IUserRepository _userRepository;
+    private readonly IUserRepository _userRepository;
 
-		public UserService(
-			PortfolioDbContext db,
-			IMapper mapper,
-			ICacheService cacheService,
-			IResult result,
-			IUserRepository userRepository)
-			: base(db, mapper, cacheService, result)
-		{
-			_userRepository = userRepository;
-		}
+    public UserService(
+        PortfolioDbContext db,
+        IMapper mapper,
+        ICacheService cacheService,
+        IResult result,
+        IUserRepository userRepository)
+        : base(db, mapper, cacheService, result)
+    {
+        _userRepository = userRepository;
+    }
 
-		public async Task<IResult> CreateUser(RegisterDto registerDto)
-		{
-			
-			var existingUser = await _userRepository.GetUserByEmailAsync(registerDto.Email);
-			if (existingUser != null)
-			{
-				_result.Rsl = false;
-				_result.Message = "User with this email already exists.";
-				return _result;
-			}
+    public async Task<IResult> CreateUser(RegisterDto registerDto)
+    {
 
-			var createDate = DateTime.Now;
-			var user = _mapper.Map<User>(registerDto);
-			var passwordDto = PasswordManagment.HashingPassword(registerDto.Password);
-			user.Password = passwordDto.Password;
-			user.SaltPassword = passwordDto.SaltPassword;
-			user.CreateDate = createDate;
-		
+        var existingUser = await _userRepository.GetUserByEmailAsync(registerDto.Email);
+        if (existingUser != null)
+        {
+            _result.Rsl = false;
+            _result.Message = "User with this email already exists.";
+            return _result;
+        }
 
-			await _userRepository.AddUserAsync(user);
+        var createDate = DateTime.Now;
+        var user = _mapper.Map<User>(registerDto);
+        var passwordDto = PasswordManagment.HashingPassword(registerDto.StrPassword);
+        user.Password = passwordDto.Password;
+        user.SaltPassword = passwordDto.SaltPassword;
+        user.CreateDate = createDate;
+        user.IsActive = true;
+        user.IsLock = true;
 
-			_result.Rsl = true;
-			_result.Message = "User created successfully.";
-			return _result;
-		}
-	}
+
+        await _userRepository.AddUserAsync(user);
+
+        _result.Rsl = true;
+        _result.Message = "User created successfully.";
+        return _result;
+    }
+    public LoginResultDto Login(LoginDto input)
+    {
+        var loginResult = new LoginResultDto();
+        var user = _db.Users
+           .FirstOrDefault(x => x.UserName == input.UserName);
+
+        if (user is null)
+        {
+            loginResult.LoginResult = LoginResult.NotExistUser;
+            return loginResult;
+        }
+        var verifyPass = PasswordManagment.VerifyPassword(input.StrPassword, user.Password, user.SaltPassword);
+
+        if (!verifyPass)
+        {
+            loginResult.LoginResult = LoginResult.IncorrecrPassword;
+            _result.Rsl = false;
+            _result.Message = AllMessage.UserNameIsNotClinic;
+
+        }
+
+        else if (user.IsLock)
+        {
+            loginResult.LoginResult = LoginResult.IsLock;
+            _result.Rsl = false;
+            _result.Message = AllMessage.IsLock;
+        }
+
+
+        else if (!user.IsActive ?? true)
+        {
+            loginResult.LoginResult = LoginResult.NotActive;
+            _result.Rsl = false;
+            _result.Message = AllMessage.UserNameIsNotClinic;
+        }
+
+
+        else
+        {
+            loginResult.LoginResult = LoginResult.Success;
+            loginResult.UserDto = _mapper.Map<UserDto>(user);
+
+        }
+        LoginInfo(user, loginResult.LoginResult);
+        loginResult.Result = _result;
+        return loginResult;
+    }
+    private void LoginInfo(User user, LoginResult login)
+    {
+        if (login == LoginResult.Success)
+        {
+            user.CountFailLogin = 0;
+            _db.SaveChanges();
+        }
+        else if (login == LoginResult.NotConfirmPassword)
+        {
+            //   _mySession.SetSession("MsgLastLogin", $"آخرین ورود شما{DateManagment.MiladiToShamsi(user.LastDateLogin)}");
+
+            user.CountFailLogin = (short)((user.CountFailLogin ?? 0) + 1);
+            user.LastDateLogin = DateTime.Now;
+            _db.SaveChanges();
+        }
+
+    }
 
 }
+
+
 
 //public class UserService : BaseProvider, IUserService
 //{

@@ -1,4 +1,13 @@
-﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿function showMessage(title, text, theme) {
 
-// Write your JavaScript code.
+    window.createNotification({
+        closeOnClick: true,
+        displayCloseButton: true,
+        positionClass: "nfc-bottom-right",
+        showDuration: 4000,
+        theme: theme !== '' ? theme : 'success'
+    })({
+        title: title !== '' ? title : 'اعلان',
+        message: decodeURI(text)
+    })
+}

@@ -1,7 +1,107 @@
-﻿
+﻿@using Portfolio.Core.Interfaces.Services.Account.Dtos
+
+@model LoginDto
 @{
     ViewData["Title"] = "Login";
+    Layout = null;
 }
 
-<h1>Login</h1>
+<style>
+
+    .inner-box {
+        background-color: #333;
+        color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        width: 300px;
+        margin: 50px auto;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+
+        .inner-box .title h4 {
+            color: #f2f2f2;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .inner-box input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #444;
+            background-color: #555;
+            color: #fff;
+            border-radius: 5px;
+        }
+
+            .inner-box input:focus {
+                border-color: #c9f31d;
+                background-color: #666;
+                outline: none;
+            }
+
+        .inner-box .theme-btn {
+            background-color: #c9f31d;
+            color: #fff;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+            .inner-box .theme-btn:hover {
+                background-color: #27ae60;
+            }
+
+
+    body {
+        margin: 0;
+        padding: 0;
+        background-color: #222;
+    }
+
+    .title h4 {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 24px;
+        color: #333;
+    }
+</style>
+
+<div class="form-container">
+    <div class="inner-box">
+        <div class="title">
+            <h4>ورود کاربر</h4>
+        </div>
+        <div class="appointment-form">
+            <form method="post" asp-controller="Account" asp-action="LoginUser" id="loginForm">
+                <div class="form-group">
+                    <input type="text" asp-for="UserName" placeholder="نام کاربری" required="">
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="password" asp-for="StrPassword" placeholder="رمز عبور" required="">
+                    <span asp-validation-for="StrPassword" class="text-danger"></span>
+                </div>
+
+            </form>
+            <div class="form-group">
+                <button onclick="loginForm()" class="theme-btn">ورود</button>
+            </div>
+        </div>
+        <div class="social-style-one">
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-pinterest-p"></i></a>
+        </div>
+    </div>
+</div>
+<
+@section scripts {
+	<script src="~/js/account/login.js"></script>
+}
 

@@ -29,6 +29,7 @@
 		</ItemGroup>
 
 		<ItemGroup>
+			<Folder Include="Interfaces\Services\Account\enums\" />
 			<Folder Include="Interfaces\Services\CacheInterfaces\Dtos\" />
 		</ItemGroup>
 
