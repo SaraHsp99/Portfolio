@@ -17,6 +17,7 @@ using Portfolio.Core.Common;
 using Portfolio.Provider.AccountProvider;
 using Portfolio.Provider.CacheProvider;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Portfolio.Provider.SecurityProvider;
 
 namespace Portfolio.Web.Controllers.Account;
 public class AccountController : Controller
@@ -58,41 +59,72 @@ public class AccountController : Controller
 
     }
 
- 
-    [AllowAnonymous]
+	[HttpPost]
+	public IActionResult Login(LoginDto input)
+	{
+		var result = _userService.Login(input);
 
-    [HttpPost]
-    public IActionResult Login(LoginDto input)
-    {
-        var returnUrl = "";
-        var identity = (System.Security.Claims.ClaimsIdentity)HttpContext.User.Identity;
-        if (identity.IsAuthenticated)
-        {
-            return Redirect(returnUrl ?? "/");
-        }
-        var result = _userService.Login(input);
+		if (result.LoginResult == LoginResult.Success)
+		{
+			var jwtService = HttpContext.RequestServices.GetRequiredService<JwtService>();
+			var token = jwtService.GenerateToken(result.UserDto.Id.ToString(), result.UserDto.Role);
 
-        var browserInfo = Request.Headers["User-Agent"].ToString();
-        //    _userService.SaveUserLoginAttempt(browserInfo, HttpContext.Connection.RemoteIpAddress.ToString(), result.userDto?.Id, input.UserName, result.LoginResult == LoginResult.Success);
+			return Json(new
+			{
+				token = token,
+				message = AllMessage.Welcome,
+				success = true
+			});
+		}
 
-        if (result.Result.Rsl)
-        {
-            if (Authenticate(result.UserDto, true))
-            {
-                if (string.IsNullOrEmpty(returnUrl))
-                {
-                    returnUrl = "/";
-                    return Json(new { url = returnUrl });
-                }
-                return Json(new { url = returnUrl });
-            }
-            return RedirectToAction("Index", "Home");
+		return Json(new
+		{
+			message = AllMessage.LoginError,
+			success = false
+		});
+	}
 
-        }
 
-        return Json(_result);
-    }
-    [AllowAnonymous]
+	//[AllowAnonymous]
+
+	//[HttpPost]
+	//public IActionResult Login(LoginDto input)
+	//{
+	//    var returnUrl = "";
+	//    var identity = (System.Security.Claims.ClaimsIdentity)HttpContext.User.Identity;
+	//    if (identity.IsAuthenticated)
+	//    {
+	//        return Redirect(returnUrl ?? "/");
+	//    }
+	//    var result = _userService.Login(input);
+
+	//    var browserInfo = Request.Headers["User-Agent"].ToString();
+	//    //    _userService.SaveUserLoginAttempt(browserInfo, HttpContext.Connection.RemoteIpAddress.ToString(), result.userDto?.Id, input.UserName, result.LoginResult == LoginResult.Success);
+
+	//    if (result.Result.Rsl)
+	//    {
+	//        if (Authenticate(result.UserDto, true))
+	//        {
+	//            if (string.IsNullOrEmpty(returnUrl))
+	//            {
+	//                returnUrl = "/";
+	//                _result.Rsl = true;
+	//                _result.Message = AllMessage.Welcome;
+
+	//	return Json(new { result = _result, url = returnUrl });
+	//            }
+	//_result.Rsl = false;
+	//_result.Message = AllMessage.LoginError;
+	//            returnUrl = "Account/Login";
+	//return Json(new { result = _result, url = returnUrl });
+	//        }
+	//        return RedirectToAction("Index", "Home");
+
+	//    }
+
+	//    return Json(new { result.Result });
+	//}
+	[AllowAnonymous]
     [HttpGet("logout")]
     public IActionResult Logout()
     {
@@ -126,7 +158,7 @@ public class AccountController : Controller
 
         };
         HttpContext.SignInAsync(principal, properties);
-        _contextAccessor.HttpContext.Session.SetString("UserId", input.Id.ToString());
+        //_contextAccessor.HttpContext.Session.SetString("UserId", input.Id.ToString());
         return true;
     }
     #endregion

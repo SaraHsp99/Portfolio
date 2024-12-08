@@ -11,7 +11,7 @@ namespace Portfolio.Core.Interfaces.Services.Account.Dtos
     {
         public LoginResult LoginResult { get; set; }
         public UserDto UserDto { get; set; }
-        public IResult Result { get; set; }
+        public Result Result { get; set; } = new Result(); 
     }
 
 }

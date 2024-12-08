@@ -53,7 +53,7 @@ public class UserService : BaseProvider, IUserService
         user.SaltPassword = passwordDto.SaltPassword;
         user.CreateDate = createDate;
         user.IsActive = true;
-        user.IsLock = true;
+        user.IsLock = false;
 
 
         await _userRepository.AddUserAsync(user);
@@ -71,7 +71,10 @@ public class UserService : BaseProvider, IUserService
         if (user is null)
         {
             loginResult.LoginResult = LoginResult.NotExistUser;
-            return loginResult;
+			_result.Rsl = false;
+			_result.Message = AllMessage.UserNameNotExistUser;
+            loginResult.Result = (Result)_result;
+			return loginResult;
         }
         var verifyPass = PasswordManagment.VerifyPassword(input.StrPassword, user.Password, user.SaltPassword);
 
@@ -79,7 +82,7 @@ public class UserService : BaseProvider, IUserService
         {
             loginResult.LoginResult = LoginResult.IncorrecrPassword;
             _result.Rsl = false;
-            _result.Message = AllMessage.UserNameIsNotClinic;
+            _result.Message = AllMessage.UserNameNotExistUser;
 
         }
 
@@ -95,7 +98,7 @@ public class UserService : BaseProvider, IUserService
         {
             loginResult.LoginResult = LoginResult.NotActive;
             _result.Rsl = false;
-            _result.Message = AllMessage.UserNameIsNotClinic;
+            _result.Message = AllMessage.NotActive;
         }
 
 
@@ -106,7 +109,7 @@ public class UserService : BaseProvider, IUserService
 
         }
         LoginInfo(user, loginResult.LoginResult);
-        loginResult.Result = _result;
+        loginResult.Result = (Result)_result;
         return loginResult;
     }
     private void LoginInfo(User user, LoginResult login)

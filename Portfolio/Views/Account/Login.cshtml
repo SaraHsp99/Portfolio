@@ -3,7 +3,7 @@
 @model LoginDto
 @{
     ViewData["Title"] = "Login";
-    Layout = null;
+    // Layout = null;
 }
 
 <style>
@@ -77,7 +77,7 @@
             <h4>ورود کاربر</h4>
         </div>
         <div class="appointment-form">
-            <form method="post" asp-controller="Account" asp-action="LoginUser" id="loginForm">
+            <form method="post" asp-controller="Account" asp-action="Login" id="loginForm">
                 <div class="form-group">
                     <input type="text" asp-for="UserName" placeholder="نام کاربری" required="">
                     <span asp-validation-for="UserName" class="text-danger"></span>
@@ -100,7 +100,7 @@
         </div>
     </div>
 </div>
-<
+
 @section scripts {
 	<script src="~/js/account/login.js"></script>
 }

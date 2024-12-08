@@ -9,6 +9,7 @@ using Portfolio.Core.RegisterAutoMapper;
 using Portfolio.Infrastructure.Repositories;
 using Portfolio.Provider.AccountProvider;
 using Portfolio.Provider.CacheProvider;
+using Portfolio.Provider.SecurityProvider;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,7 @@ namespace Portfolio.IOC
 			#endregion
 
 			#region define services
+			services.AddSingleton<JwtService>();
 			services.AddScoped<IResult, Result>();
 			services.AddScoped<ICacheService, CacheService>();
 			services.AddScoped<IUserService, UserService>();
