@@ -11,6 +11,8 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Portfolio.Core.Interfaces.Services.Account.Dtos;
+using Portfolio.Core.Entities.Personal;
+using Portfolio.Core.Interfaces.Services.PersonalInterfaces.Dtos;
 
 namespace Portfolio.Core.RegisterAutoMapper
 {
@@ -20,6 +22,7 @@ namespace Portfolio.Core.RegisterAutoMapper
         {
 			CreateMap<User, RegisterDto>().ReverseMap();
 			CreateMap<User, UserDto>().ReverseMap();
+			CreateMap<Personal, PersonalDto>().ReverseMap();
 
 		}
     }

@@ -30,8 +30,7 @@ function loginForm() {
             if (response.success) {
           
                 localStorage.setItem('token', response.token); 
-              // sessionStorage.setItem('token', response.token); // ذخیره توکن در sessionStorage
-                console.log("Token retrieved:", response.token);
+              // sessionStorage.setItem('token', response.token); 
                 showMessage("موفق", response.message, "success"); 
                 window.location.href = '/';
             } else {

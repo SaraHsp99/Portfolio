@@ -1,5 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Portfolio.Core.Entities.Account;
+using Portfolio.Core.Entities.Job;
+using Portfolio.Core.Entities.Personal;
+using Portfolio.Core.Entities.Skill;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +16,7 @@ public class PortfolioDbContext : DbContext
 
     public PortfolioDbContext(DbContextOptions<PortfolioDbContext> options)
         : base(options)
+    
     {
         this.Database.SetCommandTimeout(30);
 
@@ -24,6 +28,9 @@ public class PortfolioDbContext : DbContext
     public DbSet<UserLoginAttempt> UserLoginAttemptds { get; set; }
     public DbSet<UserPermission> UserPermissions { get; set; }
     public DbSet<UserRole> UserRoles { get; set; }
+    public DbSet<Personal> Personals { get; set; }
+    public DbSet<Skill> Skills { get; set; }
+    public DbSet<JobExperience> JobExperiences { get; set; }
 
     #region on model creating
     protected override void OnModelCreating(ModelBuilder modelBuilder)

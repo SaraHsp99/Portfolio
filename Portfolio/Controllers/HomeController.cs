@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Portfolio.Core.Interfaces.Services.SummaryInrerfaces;
 using Portfolio.Models;
 using System.Diagnostics;
 
@@ -7,18 +8,21 @@ namespace Portfolio.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+		private readonly ISummaryService _summaryService;
+		public HomeController(ILogger<HomeController> logger, ISummaryService summaryService)
+		{
+			_logger = logger;
+			_summaryService = summaryService;
+		}
 
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
+		public async Task<IActionResult> Index()
+		{
+			var model=new 
+			var summary = await _summaryService.GetSummaryAsync();
+			return View(summary);
+		}
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult Privacy()
+		public IActionResult Privacy()
         {
             return View();
         }
@@ -28,5 +32,8 @@ namespace Portfolio.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-    }
+
+
+		
+	}
 }

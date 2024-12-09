@@ -5,11 +5,15 @@ using Portfolio.Core.Entities.ClassBases;
 using Portfolio.Core.Interfaces.Repositories;
 using Portfolio.Core.Interfaces.Services.Account;
 using Portfolio.Core.Interfaces.Services.CacheInterfaces;
+using Portfolio.Core.Interfaces.Services.PersonalInterfaces;
+using Portfolio.Core.Interfaces.Services.SummaryInrerfaces;
 using Portfolio.Core.RegisterAutoMapper;
 using Portfolio.Infrastructure.Repositories;
 using Portfolio.Provider.AccountProvider;
 using Portfolio.Provider.CacheProvider;
+using Portfolio.Provider.PersonalProvider;
 using Portfolio.Provider.SecurityProvider;
+using Portfolio.Provider.SummaryProvider;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +33,13 @@ namespace Portfolio.IOC
             }).CreateMapper());
 
 			#region define repositories
+			//services.AddScoped<IGenericRepository<T>, GenericRepository>();
+			services.AddScoped<IJobExperienceRepository, JobExperienceRepository>();
+			services.AddScoped<IPermissionRepository, PermissionRepository>();
+			services.AddScoped<IPersonalRepository, PersonalRepository>();
+			services.AddScoped<IRolePermissionRepository, RolePermissionRepository>();
+			services.AddScoped<IRoleRepository, RoleRepository>();
+			services.AddScoped<ISkillRepository, SkillRepository>();
 			services.AddScoped<IUserRepository, UserRepository>();
 			#endregion
 
@@ -37,6 +48,8 @@ namespace Portfolio.IOC
 			services.AddScoped<IResult, Result>();
 			services.AddScoped<ICacheService, CacheService>();
 			services.AddScoped<IUserService, UserService>();
+			services.AddScoped<IPersonalService, PersonalService>();
+			services.AddScoped<ISummaryService, SummaryService>();
 			#endregion
 		}
 	}

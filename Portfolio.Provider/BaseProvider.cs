@@ -12,18 +12,15 @@ namespace Portfolio.Provider
 {
 	public abstract class BaseProvider
 	{
-		protected readonly PortfolioDbContext _db;
 		protected readonly IMapper _mapper;
 		protected readonly IResult _result;
 		protected readonly ICacheService _cacheService;
 
 		protected BaseProvider(
-			 PortfolioDbContext db,
 			IMapper mapper,
 			ICacheService cacheService,
 			IResult result)
 		{
-			_db = db ?? throw new ArgumentNullException(nameof(db));
 			_mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
 			_cacheService = cacheService ?? throw new ArgumentNullException(nameof(cacheService));
 			_result = result;
