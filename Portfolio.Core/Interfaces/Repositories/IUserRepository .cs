@@ -11,6 +11,7 @@ namespace Portfolio.Core.Interfaces.Repositories
 	{
 		Task AddUserAsync(User user); 
 		Task<User?> GetUserByEmailAsync(string email);
+		Task<User?> GetUserByUserNameAsync(string userName);
 	}
 
 }

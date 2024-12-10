@@ -25,12 +25,11 @@ public class UserService : BaseProvider, IUserService
     private readonly IUserRepository _userRepository;
 
     public UserService(
-        PortfolioDbContext db,
         IMapper mapper,
         ICacheService cacheService,
         IResult result,
         IUserRepository userRepository)
-        : base(db, mapper, cacheService, result)
+        : base( mapper, cacheService, result)
     {
         _userRepository = userRepository;
     }
@@ -65,8 +64,7 @@ public class UserService : BaseProvider, IUserService
     public LoginResultDto Login(LoginDto input)
     {
         var loginResult = new LoginResultDto();
-        var user = _db.Users
-           .FirstOrDefault(x => x.UserName == input.UserName);
+        var user = _userRepository.GetUserByUserNameAsync(input.UserName);
 
         if (user is null)
         {
@@ -76,7 +74,7 @@ public class UserService : BaseProvider, IUserService
             loginResult.Result = (Result)_result;
 			return loginResult;
         }
-        var verifyPass = PasswordManagment.VerifyPassword(input.StrPassword, user.Password, user.SaltPassword);
+        var verifyPass = PasswordManagment.VerifyPassword(input.StrPassword, user.Result.Password, user.Result.SaltPassword);
 
         if (!verifyPass)
         {
@@ -86,7 +84,7 @@ public class UserService : BaseProvider, IUserService
 
         }
 
-        else if (user.IsLock)
+        else if (user.Result.IsLock)
         {
             loginResult.LoginResult = LoginResult.IsLock;
             _result.Rsl = false;
@@ -94,7 +92,7 @@ public class UserService : BaseProvider, IUserService
         }
 
 
-        else if (!user.IsActive ?? true)
+        else if (!user.Result.IsActive ?? true)
         {
             loginResult.LoginResult = LoginResult.NotActive;
             _result.Rsl = false;
@@ -108,7 +106,7 @@ public class UserService : BaseProvider, IUserService
             loginResult.UserDto = _mapper.Map<UserDto>(user);
 
         }
-        LoginInfo(user, loginResult.LoginResult);
+        LoginInfo(user.Result, loginResult.LoginResult);
         loginResult.Result = (Result)_result;
         return loginResult;
     }
@@ -117,7 +115,7 @@ public class UserService : BaseProvider, IUserService
         if (login == LoginResult.Success)
         {
             user.CountFailLogin = 0;
-            _db.SaveChanges();
+          
         }
         else if (login == LoginResult.NotConfirmPassword)
         {
@@ -125,7 +123,7 @@ public class UserService : BaseProvider, IUserService
 
             user.CountFailLogin = (short)((user.CountFailLogin ?? 0) + 1);
             user.LastDateLogin = DateTime.Now;
-            _db.SaveChanges();
+
         }
 
     }

@@ -33,8 +33,6 @@ public class SummaryService : ISummaryService
 	public async Task<SummaryDto> GetSummaryAsync()
 	{
 		var user = await _userRepository.GetUserByEmailAsync("sarahoseinpanahi99@gmail.com");
-		var skills = await _skillRepository.GetAllSkillsAsync();
-		var jobExperiences = await _jobExperienceRepository.GetAllJobExperiencesAsync();
 		var personal = await _personalService.GetPersonal();
 		if (personal == null)
 		{
@@ -44,30 +42,10 @@ public class SummaryService : ISummaryService
 		var summary = new SummaryDto
 		{
 			UserName = user.UserName,
-			Skills = skills.Select(s => s.Name).ToList(),
-			JobExperiences = jobExperiences.Select(j => j.Title).ToList(),
+			FullName = personal.FirstName+" "+personal.LastName,
 			PersonalInfo = personal
 		};
 
 		return summary;
 	}
-	//public async Task<SummaryDto> GetHomeDataAsync()
-	//{
-	//	var personalInfo = await _personalRepository.GetPersonalInfoAsync();
-	//	var skills = await _skillRepository.GetSkillsAsync();
-	//	var jobExperiences = await _jobExperienceRepository.GetJobExperiencesAsync();
-
-	//	return new SummaryDto
-	//	{
-	//		UserName = personalInfo.FullName,
-	//		Bio = personalInfo.Bio,
-	//		ProfileImagePath = personalInfo.ProfileImagePath, // مثلاً آدرس عکس از دیتابیس
-	//		YearsOfExperience = personalInfo.YearsOfExperience,
-	//		SuccessfulProjects = personalInfo.SuccessfulProjects,
-	//		CustomerSatisfaction = personalInfo.CustomerSatisfactionPercentage,
-	//		Skills = skills.Select(s => s.Name).ToList(),
-	//		JobExperiences = jobExperiences.Select(j => j.Title).ToList()
-	//	};
-	//}
-
 }

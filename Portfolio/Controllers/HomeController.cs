@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Portfolio.Core.Interfaces.Services.SummaryInrerfaces;
 using Portfolio.Models;
+using Portfolio.Web.Models;
 using System.Diagnostics;
 
 namespace Portfolio.Controllers
@@ -17,9 +18,9 @@ namespace Portfolio.Controllers
 
 		public async Task<IActionResult> Index()
 		{
-			var model=new 
-			var summary = await _summaryService.GetSummaryAsync();
-			return View(summary);
+			var model = new HomeViewModel();
+			model.Summary = await _summaryService.GetSummaryAsync();
+			return View(model);
 		}
 
 		public IActionResult Privacy()

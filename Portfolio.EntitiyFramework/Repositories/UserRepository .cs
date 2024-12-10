@@ -28,6 +28,10 @@ namespace Portfolio.Infrastructure.Repositories
 		{
 			return await _db.Users.FirstOrDefaultAsync(u => u.Email == email);
 		}
+		public async Task<User?> GetUserByUserNameAsync(string userName)
+		{
+			return await _db.Users.FirstOrDefaultAsync(u => u.UserName == userName);
+		}
 	}
 
 }

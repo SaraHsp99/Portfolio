@@ -10,6 +10,7 @@ namespace Portfolio.Core.Interfaces.Services.SummaryInrerfaces.Dtos;
 public class SummaryDto
 {
 	public string UserName { get; set; }
+	public string FullName { get; set; }
 	public List<string> Skills { get; set; }
 	public List<string> JobExperiences { get; set; }
 	public PersonalDto PersonalInfo { get; set; }

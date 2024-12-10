@@ -17,20 +17,25 @@ public static class SeedData
 		using var scope = serviceProvider.CreateScope();
 		var context = scope.ServiceProvider.GetRequiredService<PortfolioDbContext>();
 
-		//if (!context.Personals.Any())
-		//{
-		//	var personal = new Personal
-		//	{
-		//		FirstName = "سارا",
-		//		LastName = " حسین پناهی",
-		//		Description = " با تجربه و مهارتی که طی این سال‌ها بدست آوردم، شما را در طول مسیر کسب و کار و ایدتان همراهی می‌کنم.",
-		//		Bio = "A passionate developer.",
-		//		ImageUrl = "https://example.com/my-photo.jpg"
-		//	};
+		if (!context.Personals.Any())
+		{
+			var personal = new Personal
+			{
+				FirstName = "سارا",
+				LastName = " حسین پناهی",
+				Description = " با تجربه و مهارتی که طی این سال‌ها بدست آوردم، شما را در طول مسیر کسب و کار و ایدتان همراهی می‌کنم.",
+				JobTitle = "برنامه نویس ,دات نت دولوپر",
+				ProfileImagePath ="~/image/me/me.jpg",
+				YearsOfExperience=3,
+				SuccessfulProjects=10,
+				CustomerSatisfaction=100
+				
 
-		//		context.Personals.Add(personal);
-		//	context.SaveChanges();
-		//}
+			};
+
+			context.Personals.Add(personal);
+			context.SaveChanges();
+		}
 	}
 }
 
