@@ -1,0 +1,27 @@
+﻿services:
+  portfolio.web:
+    image: portfolio.web
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=db;Database=YourDatabase;User=sa;Password=YourStrong@Passw0rd;TrustServerCertificate=True
+    build:
+      context: .
+      dockerfile: Portfolio/Dockerfile
+      
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=YourStrong@Passw0rd
+      - MSSQL_PID=Express
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlvolume:/var/opt/mssql
+
+volumes:
+  sqlvolume:
+    driver: local
