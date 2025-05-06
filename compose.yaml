@@ -1,12 +1,10 @@
-﻿services:
+services:
   portfolio.web:
     image: portfolio.web
     ports:
-      - "8080:80"
+      - "8090:8080"
     depends_on:
       - db
-    environment:
-      - ConnectionStrings__DefaultConnection=Server=db;Database=YourDatabase;User=sa;Password=YourStrong@Passw0rd;TrustServerCertificate=True
     build:
       context: .
       dockerfile: Portfolio/Dockerfile
