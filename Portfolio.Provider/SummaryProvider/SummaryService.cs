@@ -41,7 +41,7 @@ public class SummaryService : ISummaryService
 
 		var summary = new SummaryDto
 		{
-			UserName = user.UserName,
+			UserName = user?.UserName,
 			FullName = personal.FirstName+" "+personal.LastName,
 			PersonalInfo = personal
 		};

@@ -40,6 +40,7 @@ using (var scope = app.Services.CreateScope())
 {
 	var services = scope.ServiceProvider;
 	var context = services.GetRequiredService<PortfolioDbContext>();
+	context.Database.Migrate();
 	SeedData.Initialize(services, app.Environment);
 	if (!app.Environment.IsDevelopment())
 	{
